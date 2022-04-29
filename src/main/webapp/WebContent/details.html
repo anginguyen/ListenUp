@@ -28,6 +28,7 @@
         }
         #album {
             display: flex;
+            justify-content: space-between;
         }
         #album-cover {
             background-color: grey;
@@ -39,8 +40,7 @@
             padding: 10px 0;
         }
         #middle {
-            width: 50%;
-            margin: 0 5%;
+            width: 55%;
         }
         #album-table {
             text-align: left;
@@ -79,21 +79,34 @@
             height: 200px;
             padding: 10px;
         }
-        #all-reviews-link {
+        #review-btns {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
         }
-        #all-reviews-link a {
+        #review-btns button {
+            color: white;
+            font-size: 24px;
+            background-color: #1C2330;
+            border: none;
+            border-radius: 10px;
+            padding: 0 25px;
+        }
+        #review-btns button:hover {
+            color: #1C2330;
+            background-color: white;
+            transition: 0.3s;
+        }
+        #review-btns a {
             text-decoration: none;
         }
-        #all-reviews-link a:hover {
+        #review-btns a:hover {
             color: #2D7D19;
             transition: 0.3s;
         }
         #right {
             text-align: center;
             margin-top: 15%;
-            width: 25%;
         }
         #right button {
             font-size: 32px;
@@ -200,11 +213,12 @@
 
                     <form action="" method="POST">
                         <textarea></textarea>
+
+                        <div id="review-btns">
+                            <button type="submit">Submit</button>
+                            <a href="">View all reviews</a>
+                        </div>
                     </form>
-                    
-                    <div id="all-reviews-link">
-                        <a href="">View all reviews</a>
-                    </div>
                 </div>
             </div>
 
