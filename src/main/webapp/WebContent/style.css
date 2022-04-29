@@ -9,14 +9,17 @@
 body {
     background-color: #2A3343;
 }
+a, button {
+    text-decoration: none;
+}
+a:hover, a:not(:hover), button:hover, button:not(:hover) {
+    transition: 0.3s;
+}
 #navbar {
     background-color: #1C2330;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-#navbar a {
-    text-decoration: none;
 }
 #listenup-name {
     color: white;
@@ -29,11 +32,7 @@ body {
     font-weight: 300;
     padding: 0 30px;
 }
-.nav-link:hover {
-    color: #2D7D19;
-    transition: 0.5s;
-}
-#spotify-nav {
+.nav-link:hover, #spotify-nav {
     color: #2D7D19;
 }
 #spotify-nav:hover {
