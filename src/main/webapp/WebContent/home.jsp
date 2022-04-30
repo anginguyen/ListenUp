@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,12 +43,12 @@
 <body>
     <div id="navbar">
         <div id="nav-left">
-            <a id="listenup-name" href="home.html">ListenUp</a>
+            <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="signup.html">Sign Up</a>
-            <a class="nav-link" href="login.html">Login</a>
+            <a class="nav-link" href="signup.jsp">Sign Up</a>
+            <a class="nav-link" href="login.jsp">Login</a>
             <a class="nav-link" href="search.html">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
@@ -70,4 +71,4 @@
         </div>
     </div>
 </body>
-</html>
+</html>ml>
