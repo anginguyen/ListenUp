@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,22 +56,26 @@
 <body>
     <div id="navbar">
         <div id="nav-left">
-            <a id="listenup-name" href="home.html">ListenUp</a>
+            <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="signup.html">Sign Up</a>
-            <a class="nav-link" href="login.html">Login</a>
+            <a class="nav-link" href="signup.jsp">Sign Up</a>
+            <a class="nav-link" href="login.jsp">Login</a>
             <a class="nav-link" href="search.html">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>
+    	
 
     <div class="container">
+    		<% String er = (String) request.getAttribute("error");
+			if (er != null) out.println(er);
+			%>
         <div id="signup-box">
             <h1>Sign Up</h1>
 
-            <form action="" method="POST">
+            <form action="RegisterDispatcher" method=GET>
                 <label for="email-signup">Email</label><br>
                 <input type="text" name="email-signup" id="email-signup">
 
