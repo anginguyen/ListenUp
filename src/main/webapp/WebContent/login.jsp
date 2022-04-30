@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+   <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,6 +38,18 @@
             width: 100%;
             margin-bottom: 10%;
         }
+        #login-box button {
+            color: #2A3343;
+            font-size: 28px;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+        }
+        #login-box button:hover {
+            color: white;
+            background-color: #2D7D19;
+        }
         #login-box a {
             font-size: 24px;
         }
@@ -73,11 +85,11 @@
 <body>
     <div id="navbar">
         <div id="nav-left">
-            <a id="listenup-name" href="home.html">ListenUp</a>
+            <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="signup.html">Sign Up</a>
+            <a class="nav-link" href="signup.jsp">Sign Up</a>
             <a class="nav-link" href="login.html">Login</a>
             <a class="nav-link" href="search.html">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
@@ -85,20 +97,25 @@
     </div>
 
     <div class="container">
+    <% String er = (String) request.getAttribute("error");
+			if (er != null) out.println(er);
+			%>
         <div id="login-box">
             <h1>Login</h1>
 
-            <form action="" method="POST">
-                <label for="username-login">Username</label><br>
-                <input type="text" name="username-login" id="username-login">
+            <form action="LoginDispatcher" method="GET">
+                <label for="email-login">Email</label><br>
+                <input type="text" name="email-login" id="email-login">
 
                 <br>
 
                 <label for="password-login">Password</label><br>
                 <input type="password" name="password-login" id="password-login">
+                
+                <button type="submit">Log In</button>
             </form>
             
-            <a href="" id="forgot-password-link">Forgot your password?</a><br>
+           <!--  <a href="" id="forgot-password-link">Forgot your password?</a><br> -->
 
             <a href="" id="spotify-login">Login with Spotify</a>
         </div>
@@ -110,7 +127,7 @@
 
         <script>
             document.querySelector("#redirect-btn").onclick = function() {
-                location.href = "signup.html";
+                location.href = "signup.jsp";
             };
         </script>
     </div>
