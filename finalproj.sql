@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS FinalProject;
-CREATE DATABASE FinalProject;
-USE FinalProject;
+DROP DATABASE IF EXISTS finalproj;
+CREATE DATABASE finalproj;
+USE finalproj;
 DROP TABLE IF EXISTS ARTISTS;
 DROP TABLE IF EXISTS ALBUMS;
 DROP TABLE IF EXISTS SONGS;
@@ -9,19 +9,19 @@ DROP TABLE IF EXISTS ALBUM_REVIEWS;
 DROP TABLE IF EXISTS SONG_REVIEWS;
  
 CREATE TABLE ARTISTS (
- artist_id INT PRIMARY KEY NOT NULL,
- artist_name varchar(50) NOT NULL
+ artist_id INT PRIMARY KEY,
+ artist_name varchar(50)
 );
 
 CREATE TABLE ALBUMS (
-album_id INT PRIMARY KEY NOT NULL,
-album_name VARCHAR(50) NOT NULL,
+album_id INT PRIMARY KEY,
+album_name VARCHAR(50),
 cover_url VARCHAR(50),
-artist_id INT NOT NULL,
+artist_id INT,
 FOREIGN KEY (artist_id) REFERENCES ARTISTS(artist_id),
-duration INT NOT NULL,
-releasedate VARCHAR(20) NOT NULL,
-rating INT NOT NULL
+duration INT,
+releasedate VARCHAR(20),
+rating INT
 );
 
 CREATE TABLE SONGS (
@@ -41,9 +41,7 @@ user_id INT PRIMARY KEY NOT NULL,
 username VARCHAR(50) NOT NULL,
 email VARCHAR(50) NOT NULL,
 pass VARCHAR(50) NOT NULL,
-favorite_artist_id INT,
-song_url VARCHAR(75) NOT NULL,
-FOREIGN KEY (favorite_artist_id) REFERENCES ARTISTS(artist_id)
+song_url VARCHAR(75)
 );
 
 CREATE TABLE ALBUM_REVIEWS (
