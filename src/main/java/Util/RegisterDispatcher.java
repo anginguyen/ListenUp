@@ -37,7 +37,6 @@ import com.google.gson.reflect.TypeToken;
 public class RegisterDispatcher extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
-    //private static final String url = "jdbc:mysql://localhost:3306/PA4Users";
     private static final String url = "jdbc:mysql://localhost/finalproj";
 
     /**
@@ -86,6 +85,10 @@ public class RegisterDispatcher extends HttpServlet {
         	catch (Exception e) {
         		e.printStackTrace();
         	}
+            String temp = name.replaceAll(" ", "=");
+            Cookie em = new Cookie("em", temp);
+            em.setMaxAge(60*60);
+            response.addCookie(em);
         	response.sendRedirect("home.jsp");
 
         }
