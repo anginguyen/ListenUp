@@ -50,6 +50,31 @@ public class Helper {
         }
         return Constant.emailPattern.matcher(email).matches();
     }
+    
+    public static String getUserName(String email) throws SQLException {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String pp = "";
+		String sql = "SELECT r.username "
+				+ "FROM USERS r "
+				+ "WHERE r.email ='"+email+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		pp = rs.getString("username");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return pp;
+    }
 
 
     /**
@@ -79,7 +104,7 @@ public class Helper {
   					
   			
   		} catch (SQLException sqle) {
-  			//System.out.println ("SQLException: " + sqle.getMessage());
+  			
   		}
         if(password.equals(pp)) {
         	return true;
