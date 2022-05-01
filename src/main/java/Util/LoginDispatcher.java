@@ -79,6 +79,18 @@ public class LoginDispatcher extends HttpServlet {
           }
 
           if (error.equals("")) {
+        	  String name = "";
+        	  try {
+        		  name = Helper.getUserName(email);
+        		 
+        	  }
+        	  catch (Exception e) {
+        		  
+        	  } 
+        	  String temp = name.replaceAll(" ", "=");
+              Cookie em = new Cookie("em", temp);
+              em.setMaxAge(60*60);
+              response.addCookie(em);
         	  response.sendRedirect("home.jsp");
 
           }
