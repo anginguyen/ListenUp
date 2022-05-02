@@ -50,6 +50,58 @@ public class Helper {
         }
         return Constant.emailPattern.matcher(email).matches();
     }
+    public static String albumName(String name) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String album = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name LIKE '%"+name+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		album = rs.getString("album_name");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return album;
+    }
+    
+    public static String getCover(String name) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String cover = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name LIKE '%"+name+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		cover = rs.getString("cover_url");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("cover"+cover);
+        return cover;
+    }
     
     public static String getUserName(String email) throws SQLException {
     	Connection conn = null;
