@@ -155,6 +155,9 @@
     </style>
 </head>
 <body>
+		<%@page import="java.util.*"
+	    import ="Util.Helper"
+	    %>
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
@@ -178,7 +181,8 @@
             <div id="left">
                 <div id="album-cover">
                		 <!-- sql -->
-                	<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Olivia_Rodrigo_-_SOUR.png" alt="album cover">
+               		 <%String cover = Helper.getCover("sour"); %>
+                	<img src="<%=cover%>" alt="album cover">
                 </div>
 
                 <div id="album-tracklist">
