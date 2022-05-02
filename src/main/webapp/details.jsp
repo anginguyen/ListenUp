@@ -1,4 +1,4 @@
-%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -170,17 +170,19 @@
 
     <div class="container">
         <div id="album-name">
-            <p id="title">SOUR</p>
-            <p id="artist">Olivia Rodrigo</p>
+            <p id="title">SOUR</p> <!-- sql -->
+            <p id="artist">Olivia Rodrigo</p> <!-- sql -->
         </div>
 
         <div id="album">
             <div id="left">
                 <div id="album-cover">
+               		 <!-- sql -->
                 	<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Olivia_Rodrigo_-_SOUR.png" alt="album cover">
                 </div>
 
                 <div id="album-tracklist">
+                	<!-- sql -->
                     <p class="section-header">Tracklist</p>
 
                     <p>1. brutal</p>
