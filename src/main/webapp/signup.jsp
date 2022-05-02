@@ -51,6 +51,7 @@
             color: white;
             background-color: #2D7D19;
         }
+        
     </style>
 </head>
 <body>
@@ -95,6 +96,7 @@
                 <input type="password" name="confirm-password-signup" id="confirm-password-signup">
 
                 <button type="submit">Create Account</button>
+                <a id ="guest" href="LoginDispatcher?email-login=guest@mail.com&password-login=guest">Sign-in as Guest</a>
             </form>
         </div>
     </div>
