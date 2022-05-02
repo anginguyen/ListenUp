@@ -208,6 +208,8 @@
                     <form action="" method="POST">
                         <textarea></textarea>
 
+                        <input type="hidden" name="rating" id="rating">
+
                         <div id="review-btns">
                             <button type="submit">Submit</button>
                             <a href="">View all reviews</a>
@@ -229,6 +231,7 @@
         var stars = Array.from(document.getElementsByClassName("fa-star"));
         var clicked = false;
         var starClicked = null;
+        var rating = document.querySelector("#rating");
         
         for (let i=0; i < stars.length; ++i) {
             // Sticks color to stars for user's rating
@@ -236,6 +239,7 @@
                 changeStarColor(0, i);
                 clicked = true;
                 starClicked = i;
+                rating.value = starClicked+1;
             }
 
             // Changes all stars to the one that user is hovering over
@@ -274,6 +278,31 @@
                 else {
                     stars[i].style.color = "#C4C4C4";
                 }
+            }
+        }
+
+        // Review form validation 
+        document.querySelector("#review-form").onsubmit = function(event) {
+            var review = document.querySelector("#review");
+            var errorMsgDiv = document.querySelector("#error-msg");
+            
+            // Clears any old error messages
+            errorMsgDiv.innerHTML = "";
+
+            // Empty rating error
+            if (rating.value == "") {
+                event.preventDefault();
+                var errorMsg = document.createElement("p");
+                errorMsg.innerHTML = "Please provide a rating.";
+                errorMsgDiv.appendChild(errorMsg);
+            }
+
+            // Empty review error
+            if (review.value == "") {
+                event.preventDefault();
+                var errorMsg = document.createElement("p");
+                errorMsg.innerHTML = "Please write a review.";
+                errorMsgDiv.appendChild(errorMsg);
             }
         }
     </script>
