@@ -117,7 +117,7 @@
             
            <!--  <a href="" id="forgot-password-link">Forgot your password?</a><br> -->
 
-            <a href="" id="spotify-login">Login with Spotify</a>
+            <a href="LoginDispatcher?email-login=guest@mail.com&password-login=guest" id="spotify-login">Login as Guest</a>
         </div>
 
         <div id="register-redirect">
