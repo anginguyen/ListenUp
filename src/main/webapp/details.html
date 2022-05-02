@@ -63,7 +63,7 @@
             display: flex;
             margin-bottom: 40px;
         }
-        #stars i {
+        #stars i, #overall-stars i {
             color: #C4C4C4;
             font-size: 60px;
             padding-right: 10px;
@@ -71,7 +71,7 @@
         #stars i:hover, #stars i:not(:hover) {
             transition: 0.3s;
         }
-        #review textarea {
+        #review {
             color: white;
             background-color: #404D66;
             font-size: 24px;
@@ -79,6 +79,14 @@
             width: 100%;
             height: 200px;
             padding: 10px;
+        }
+        #error-msg {
+            margin-bottom: 10px;
+        }
+        #error-msg p {
+            font-size: 20px;
+            line-height: 20px;
+            color: red;
         }
         #review-btns {
             display: flex;
@@ -97,8 +105,30 @@
             color: #1C2330;
             background-color: white;
         }
-        #review-btns a:hover {
+        #review-btns a:hover, #write-review-link a:hover {
             color: #2D7D19;
+        }
+        #all-reviews {
+            display: none;
+        }
+        #overall-stars {
+            display: flex;
+        }
+        #write-review-link {
+            display: flex;
+            justify-content: flex-end;
+        }
+        #review-box {
+            background-color: #404D66;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        #user-stars i {
+            color: #1ED760;
+            font-size: 15px;
+        }
+        #username {
+            color: #C4C4C4;
         }
         #right {
             text-align: center;
@@ -194,8 +224,8 @@
                     </tr>
                 </table>
 
-                <div id="review">
-                    <p class="section-header">Rate and Review:</p>
+                <div id="rate-and-review">
+                    <p class="section-header">Rate and Review</p>
 
                     <div id="stars">
                         <i class="fa-solid fa-star"></i>
@@ -205,16 +235,60 @@
                         <i class="fa-solid fa-star"></i>
                     </div>
 
-                    <form action="" method="POST">
-                        <textarea></textarea>
+                    <form action="" method="POST" id="review-form">
+                        <textarea id="review" name="review"></textarea>
 
                         <input type="hidden" name="rating" id="rating">
 
+                        <div id="error-msg"></div>
+
                         <div id="review-btns">
                             <button type="submit">Submit</button>
-                            <a href="">View all reviews</a>
+                            <a>View all reviews</a>
                         </div>
                     </form>
+                </div>
+
+                <div id="all-reviews">
+                    <p class="section-header">All Reviews</p>
+        
+                    <div id="overall-stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+            
+                    <div id="write-review-link">
+                        <a>Write a review</a>
+                    </div>
+        
+                    <div id="review-box">
+                        <div id="user-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+            
+                        <p id="username">angelanguyen</p>
+                        <p id="user-review">I love this album so much</p>
+                    </div>
+            
+                    <div id="review-box">
+                        <div id="user-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+            
+                        <p id="username">srinidhiy</p>
+                        <p id="user-review">I hate olivia rodrigo</p>
+                    </div>
                 </div>
             </div>
 
@@ -228,7 +302,7 @@
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
 
     <script>
-        var stars = Array.from(document.getElementsByClassName("fa-star"));
+        var stars = Array.from(document.querySelectorAll("#stars i"));
         var clicked = false;
         var starClicked = null;
         var rating = document.querySelector("#rating");
@@ -304,6 +378,16 @@
                 errorMsg.innerHTML = "Please write a review.";
                 errorMsgDiv.appendChild(errorMsg);
             }
+        }
+
+        document.querySelector("#review-btns a").onclick = function() {
+            document.querySelector("#rate-and-review").style.display = "none";
+            document.querySelector("#all-reviews").style.display = "initial";
+        }
+
+        document.querySelector("#write-review-link a").onclick = function() {
+            document.querySelector("#all-reviews").style.display = "none";
+            document.querySelector("#rate-and-review").style.display = "initial";
         }
     </script>
 </body>
