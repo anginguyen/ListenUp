@@ -1,3 +1,4 @@
+%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +34,10 @@
         }
         #album-cover {
             background-color: grey;
+            width: 250px;
+            height: 250px;
+        }
+        #album-cover img {
             width: 250px;
             height: 250px;
         }
@@ -171,7 +176,9 @@
 
         <div id="album">
             <div id="left">
-                <div id="album-cover"></div>
+                <div id="album-cover">
+                	<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Olivia_Rodrigo_-_SOUR.png" alt="album cover">
+                </div>
 
                 <div id="album-tracklist">
                     <p class="section-header">Tracklist</p>
