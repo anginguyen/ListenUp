@@ -58,7 +58,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "home.jsp";
+							disp2 = "home.jsp"; //should be changed to profile page for user
 							break;
 						}
 					}
