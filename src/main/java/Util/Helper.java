@@ -368,6 +368,82 @@ public class Helper {
         return reviews;
     }
     
+    public static ArrayList<ArrayList<String>> getRevsUsername(String name) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<ArrayList<String>> reviews = new ArrayList<>();
+        
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM album_reviews as rev "
+				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
+				+ "WHERE us.username = '"+name+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		String reviewText = rs.getString("review");
+        		String username = rs.getString("username");
+        		String rating = Integer.toString(rs.getInt("rating"));
+        		ArrayList<String> review = new ArrayList<>();
+        		review.add(reviewText);
+        		review.add(username);
+        		review.add(rating);
+        		reviews.add(review);
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        for (int i=0; i<reviews.size(); i++) {
+        	System.out.println("Rev: "+reviews.get(i).get(0));
+        }
+        return reviews;
+    }
+    
+    public static ArrayList<ArrayList<String>> getRevsUserID(String ID) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<ArrayList<String>> reviews = new ArrayList<>();
+        
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM album_reviews as rev "
+				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
+				+ "WHERE rev.user_id = '"+ID+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		String reviewText = rs.getString("review");
+        		String username = rs.getString("username");
+        		String rating = Integer.toString(rs.getInt("rating"));
+        		ArrayList<String> review = new ArrayList<>();
+        		review.add(reviewText);
+        		review.add(username);
+        		review.add(rating);
+        		reviews.add(review);
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        for (int i=0; i<reviews.size(); i++) {
+        	System.out.println("Rev: "+reviews.get(i).get(0));
+        }
+        return reviews;
+    }
+    
     public static String getAlbumDuration(String ID) {
     	Connection conn = null;
         try {
