@@ -295,6 +295,7 @@ public class Helper {
         return rating;
     }
     
+    //broken dont use
     public static Map<String,String> getReviews(String album) {
     	Connection conn = null;
         try {
@@ -335,24 +336,32 @@ public class Helper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArrayList<ArrayList<String>> revs = new ArrayList<>();;
+        ArrayList<ArrayList<String>> reviews = new ArrayList<>();
+        
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM album_reviews as rev "
 				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
-				+ "WHERE rev.album_id LIKE '%"+String.valueOf(Helper.getID(album))+"%';";
+				+ "WHERE rev.album_id LIKE '%"+Helper.getID(album)+"%';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
-        		String review = rs.getString("review");
+        		String reviewText = rs.getString("review");
         		String username = rs.getString("username");
-        		//revs.put(username,review);
-        		//System.out.println("rev"+revs.get(username));
+        		String rating = Integer.toString(rs.getInt("rating"));
+        		ArrayList<String> review = new ArrayList<>();
+        		review.add(reviewText);
+        		review.add(username);
+        		review.add(rating);
+        		reviews.add(review);
         	}
  			
   		} catch (SQLException sqle) {
   			
   		}
-        return revs;
+        for (int i=0; i<reviews.size();i++) {
+        	System.out.println("Rev: "+reviews.get(i).get(0));
+        }
+        return reviews;
     }
     
     public static String getAlbumDuration(String album) {
