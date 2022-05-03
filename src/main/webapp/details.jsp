@@ -158,14 +158,43 @@
 		<%@page import="java.util.*"
 	    import ="Util.Helper"
 	    %>
+	    <% String name = (String) request.getParameter("name"); %>
+	
+		<% 
+	
+			Cookie[] cookies  = request.getCookies();
+			String em = "Sign Up";
+			String red = "Login";
+			String disp = "login.jsp";
+			String disp2 = "signup.jsp";
+			if(cookies!=null){	
+				String temp ="";
+				try{
+					for(Cookie c : cookies){
+						if(c.getName().equals("em")){ 
+							em=c.getValue();
+							temp = em.replaceAll("=", " ");
+							em="" + temp +"";
+							red = "Logout";
+							disp = "LogoutDispatcher";
+							disp2 = "home.jsp"; //should be changed to profile page for user
+							break;
+						}
+					}
+				}
+				catch (Exception E){
+				}
+			}
+	%>
+	
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="signup.jsp">Sign Up</a>
-            <a class="nav-link" href="login.jsp">Login</a>
+            <a class="nav-link" href="<%=disp2%>"><%=em%></a>
+            <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.html">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
@@ -173,25 +202,30 @@
 
     <div class="container">
         <div id="album-name">
-            <p id="title">SOUR</p> <!-- sql -->
-            <p id="artist">Olivia Rodrigo</p> <!-- sql -->
+       		<%String artist = Helper.getArtist(name); %>
+            <p id="title"> <%=name%> </p> <!-- sql -->
+            <p id="artist"><%=artist%></p>
         </div>
 
         <div id="album">
             <div id="left">
                 <div id="album-cover">
-               		 <!-- sql -->
-               		 <%String cover = Helper.getCover("sour"); %>
+               		 <!-- more generic -->
+               		 <% String cover = Helper.getCover(name); %>
                 	<img src="<%=cover%>" alt="album cover">
                 </div>
 
                 <div id="album-tracklist">
                 	<!-- sql -->
                     <p class="section-header">Tracklist</p>
-
-                    <p>1. brutal</p>
+					<% ArrayList<String> songs = Helper.getSongs(name); %>
+					<% for (int i =0; i<songs.size(); i++){
+						out.println("<p>"+(i+1)+". "+songs.get(i));
+					}
+					%>
+                    <!-- <p>1. brutal</p>
                     <p>2. traitor</p>
-                    <p>3. drivers license</p>
+                    <p>3. drivers license</p> -->
                     <p>4. 1 step forward, 3 steps back</p>
                     <p>5. deja vu</p>
                     <p>6. good 4 u</p>
@@ -211,7 +245,8 @@
                         <th>Production Credits</th>
                     </tr>
                     <tr>
-                        <td>Release Date: May 21, 2021</td>
+                    	<% String date = Helper.getDate(name); %>
+                        <td>Release Date: <%=date%></td>
                         <td></td>
                         <td>Jack Antonoff</td>
                     </tr>
@@ -221,7 +256,8 @@
                         <td>Paul Cartwright</td>
                     </tr>
                     <tr>
-                        <td>Runtime: 34 min 41 sec</td>
+                    	<% String duration = Helper.getAlbumDuration(name); %>
+                        <td>Duration: <%=duration%> </td>
                         <td></td>
                         <td>Annie Clark</td>
                     </tr>
