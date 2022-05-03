@@ -159,11 +159,16 @@
             for (let i=0; i < 4; ++i) {
                 let albumName = resultsJSON.albums.items[i].name;
                 let albumImg = resultsJSON.albums.items[i].images[0].url;
+                
+                let newATag = document.createElement("a");
+                newATag.setAttribute("href", "details.jsp?name=" + albumName);
 
                 let newImg = document.createElement("img");
                 newImg.setAttribute("src", albumImg);
                 newImg.setAttribute("alt", albumName);
-                albums[0].appendChild(newImg);
+
+                newATag.appendChild(newImg);
+                albums[0].appendChild(newATag);
             }
         }
     </script>
