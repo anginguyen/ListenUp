@@ -47,40 +47,42 @@
             margin-top: 15px;
             margin-bottom: 30px;
         }
-        #album-result {
+        .album-result {
             background-color: #404D66;
             display: flex;
             padding: 20px;
             border-radius: 50px;
             margin-bottom: 15px;
         }
-        #album-cover {
-            background-color: grey;
-            width: 200px;
-            height: 200px;
+        .album-cover {
+        	width: 200px;
+        	height: 200px;
             margin-right: 25px;
             margin-left: 10px;
-            border-radius: 20px;
         }
-        #album-cover img {
+        .album-cover img {
             width: 200px;
-            height: 200px;
+            height: auto;
             margin: 0;
             border-radius: 20px;
         }
-        #album-details a {
+        .album-details a {
             color:#C4C4C4;
             font-size: 42px;
         }
-        #album-details a:hover {
+        .album-details a:hover {
             color:#2D7D19;
         }
-        #rating {
+        .rating {
+        	display: flex;
             margin-top: 7%;
         }
-        #rating i {
-            font-size: 30px;
-            padding-right: 2%;
+       .rating i {
+            font-size: 24px;
+        }
+        .rating-p {
+        	font-weight: 300;
+        	margin-left: 5px;
         }
         .filled {
             color:#2D7D19;
@@ -129,7 +131,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "account.jsp"; //should be changed to profile page for user
+							disp2 = "account.jsp?username=" + em; //should be changed to profile page for user
 							break;
 						}
 					}
@@ -163,17 +165,17 @@
 
             
 		<% for(AlbumSimplified a : albums) { %>
-            <div id="album-result">
-                <div id="album-cover">
+            <div class="album-result">
+                <div class="album-cover">
                 <% 
                 	Image[] covers = a.getImages();
                 	
                 %>
-                <img src = <%= covers[0].getUrl() %>>
+                	<img src = <%= covers[0].getUrl() %>>
                 </div>
 
-                <div id="album-details">
-                    <a href="details.jsp?albumid=<%= a.getId() %>" id="album-title"><%= a.getName() %></a>
+                <div class="album-details">
+                    <a href="details.jsp?albumid=<%= a.getId() %>" class="album-title"><%= a.getName() %></a>
                     <% ArtistSimplified[] artists = a.getArtists();
                     	for (ArtistSimplified art : artists) {
                     		out.print("<p>" + art.getName() + "</p>" );
@@ -181,7 +183,7 @@
                     %>
                     <%-- <p><%= a.getArtists().clone(). %></p> --%>
                     
-                    <div id="rating">
+                    <div class="rating">
                     	<% 
                     		double rating = Helper.getRating(a.getId());
                     		int temp = (int)rating;
@@ -196,7 +198,11 @@
                     			out.println("<i class=\"fa-solid fa-star-half filled\"></i>");
                     		}
                     		
-                    		out.println("<p>(" + rating + ")</p>");
+                    		if (rating == 0) {
+                    			out.println("<p>No reviews yet</p>");
+                    		}
+                    		
+                    		out.println("<p class=\"rating-p\">(" + rating + ")</p>");
                     	%>
                     </div>
                 </div>

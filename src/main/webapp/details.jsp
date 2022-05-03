@@ -151,7 +151,7 @@
 	    import ="Util.Helper"
 	    %>
 	    
-			
+	
 		<% 
 	
 			Cookie[] cookies  = request.getCookies();
@@ -169,7 +169,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "home.jsp"; //should be changed to profile page for user
+							disp2 = "account.jsp?username=" + em; //should be changed to profile page for user
 							break;
 						}
 					}
@@ -178,24 +178,7 @@
 				}
 			}
 	%>
-	<%
-		session.setMaxInactiveInterval(2);
-	%>
-
-	 <script type="text/javascript">
-		var Msg ='<%=session.getAttribute("getAlert")%>';
-		    if (Msg == "guest") {
-				function alertName(){
-			 		alert("Guests cannot make reviews! Please make an account to share your opinion :)");
-				} 
-			}
-		    if (Msg == "user") {
-				function alertName(){
-			 		alert("Rating published! :)");
-				} 
-			}
-	 </script>
-	  
+	
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
@@ -205,7 +188,6 @@
             <a class="nav-link" href="<%=disp2%>"><%=em%></a>
             <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.jsp">Albums</a>
-            <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>
 
@@ -419,6 +401,5 @@
             document.querySelector("#rate-and-review").style.display = "initial";
         }
     </script>
-    <script type="text/javascript"> window.onload = alertName; </script>
 </body>
 </html>

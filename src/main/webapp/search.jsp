@@ -64,7 +64,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "home.jsp"; //should be changed to profile page for user
+							disp2 = "account.jsp?username=" + em; //should be changed to profile page for user
 							break;
 						}
 					}
