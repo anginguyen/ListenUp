@@ -107,6 +107,9 @@
     
 </head>
 <body>
+		<%@page import="java.util.*"
+	    	import ="Util.Helper"
+	    %>
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
@@ -152,11 +155,22 @@
                     <%-- <p><%= a.getArtists().clone(). %></p> --%>
                     
                     <div id="rating">
-                        <i class="fa-solid fa-star filled"></i>
-                        <i class="fa-solid fa-star filled"></i>
-                        <i class="fa-solid fa-star filled"></i>
-                        <i class="fa-solid fa-star filled"></i>
-                        <i class="fa-solid fa-star not-filled"></i>
+                    	<% 
+                    		double rating = Helper.getRating(a.getId());
+                    		int temp = (int)rating;
+                    		
+                    		// Output the number of stars according to the average rating
+                    		for (int i=0; i < temp; ++i) {
+                    			out.println("<i class=\"fa-solid fa-star filled\"></i>");
+                    		}
+                    		
+                    		// Half-star if applicable
+                    		if (rating-temp >= 0.3) {
+                    			out.println("<i class=\"fa-solid fa-star-half filled\"></i>");
+                    		}
+                    		
+                    		out.println("<p>(" + rating + ")</p>");
+                    	%>
                     </div>
                 </div>
             </div>

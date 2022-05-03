@@ -156,7 +156,9 @@
             let resultsJSON = JSON.parse(results);
 
             let albums = document.querySelectorAll(".album-img");
-            for (let i=0; i < 4; ++i) {
+            
+            //should be 4 but changed to demo
+            for (let i=0; i < 3; ++i) {
                 let albumName = resultsJSON.albums.items[i].name;
                 let albumImg = resultsJSON.albums.items[i].images[0].url;
                 
@@ -170,6 +172,19 @@
                 newATag.appendChild(newImg);
                 albums[0].appendChild(newATag);
             }
+            /* added this just for demo to be able to click on sour */
+            let albumName = "Sour";
+            let albumImg = "https://i.scdn.co/image/ab67616d0000b273a91c10fe9472d9bd89802e5a";
+            
+            let newATag = document.createElement("a");
+            newATag.setAttribute("href", "details.jsp?albumid=" + "6s84u2TUpR3wdUv4NgKA2j");
+
+            let newImg = document.createElement("img");
+            newImg.setAttribute("src", albumImg);
+            newImg.setAttribute("alt", albumName);
+
+            newATag.appendChild(newImg);
+            albums[0].appendChild(newATag);
         }
     </script>
 </body>
