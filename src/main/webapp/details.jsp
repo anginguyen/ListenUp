@@ -123,16 +123,20 @@
             display: flex;
             justify-content: flex-end;
         }
-        #review-box {
+        .review-box {
             background-color: #404D66;
             padding: 20px;
             margin-bottom: 15px;
         }
-        #user-stars i {
+        .filled {
             color: #1ED760;
             font-size: 15px;
         }
-        #username {
+        .unfilled {
+        	color: #C4C4C4;
+            font-size: 15px;
+        }
+        .username {
             color: #C4C4C4;
         }
         #right {
@@ -316,32 +320,33 @@
                     <div id="write-review-link">
                         <a>Write a review</a>
                     </div>
-        
-                    <div id="review-box">
-                        <div id="user-stars">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-            
-                        <p id="username">angelanguyen</p>
-                        <p id="user-review">I love this album so much</p>
-                    </div>
-            
-                    <div id="review-box">
-                        <div id="user-stars">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-            
-                        <p id="username">srinidhiy</p>
-                        <p id="user-review">I hate olivia rodrigo</p>
-                    </div>
+                    
+                    <% 
+                    	// Iterate through list of all reviews for this album
+                    	ArrayList<ArrayList<String>> allReviews = Helper.getRevs(name);
+                    	for (ArrayList<String> review : allReviews) {
+                    %>
+                    		<div class="review-box">
+                    			<div class="user-stars">
+                    			 	<% 
+                    			 		// Rating 
+                    			 		int revRating = Integer.valueOf(review.get(2));
+                    			 		for (int i=0; i < revRating; ++i) {
+                    			 			out.println("<i class=\"fa-solid fa-star filled\"></i>");
+                    			 		}
+                    			 		for (int i=revRating; i < 5; ++i) {
+                    			 			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
+                    			 		}
+                    			 	%>
+                    			</div>
+                    			
+                    			<%
+                    				// Username & review
+	                    			out.println("<p class=\"username\">" + review.get(1) + "</p>");
+	                    			out.println("<p class=\"user-review\">" + review.get(0) + "</p>");
+                    			%>
+                    		</div>
+                    <% } %>
                 </div>
             </div>
 
