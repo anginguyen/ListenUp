@@ -369,7 +369,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name = '"+album+"'"
+				+ "WHERE album_name LIKE '%"+album+"%'"
 				+ " ORDER BY releasedate DESC;";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
@@ -426,7 +426,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM finalproj.SONGS as s "
 				+ "INNER JOIN finalproj.ALBUMS AS al on s.album_id = al.album_id "
-				+ "WHERE album_name = '"+album+"' "
+				+ "WHERE album_name LIKE '%"+album+"%' "
 				+"ORDER BY s.position ASC;";
 		
 		ArrayList<String> songs = new ArrayList<String>();
