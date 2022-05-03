@@ -51,6 +51,7 @@ public class Helper {
         }
         return Constant.emailPattern.matcher(email).matches();
     }
+    
     public static String albumName(String name) {
     	Connection conn = null;
         try {
@@ -148,7 +149,6 @@ public class Helper {
 				+ "INNER JOIN finalproj.ALBUMS AS al on a.artist_id = al.artist_id "
 				+ "WHERE al.album_id = '"+ID+"' "
 				+"ORDER BY al.releasedate DESC;";
-		System.out.println(sql);
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		artist = rs.getString("artist_name");
@@ -217,6 +217,7 @@ public class Helper {
         }
         return albID;
     }
+    
     public static String getName(String ID) {
     	Connection conn = null;
         try {
@@ -442,7 +443,6 @@ public class Helper {
 				+"ORDER BY s.position ASC;";
 		
 		ArrayList<String> songs = new ArrayList<String>();
-		System.out.println(sql);
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		songs.add(rs.getString("song_name"));
