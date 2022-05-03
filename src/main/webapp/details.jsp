@@ -158,7 +158,7 @@
 		<%@page import="java.util.*"
 	    import ="Util.Helper"
 	    %>
-	    <% String name = (String) request.getParameter("name"); %>
+	    
 	
 		<% 
 	
@@ -202,6 +202,7 @@
 
     <div class="container">
         <div id="album-name">
+        	<%String name = Helper.getName((String)request.getParameter("albumid")); %>
        		<%String artist = Helper.getArtist(name); %>
             <p id="title"> <%=name%> </p> <!-- sql -->
             <p id="artist"><%=artist%></p>

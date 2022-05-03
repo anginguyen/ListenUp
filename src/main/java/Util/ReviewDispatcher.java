@@ -65,7 +65,7 @@ public class ReviewDispatcher extends HttpServlet {
     	int rand_id = random.nextInt(1000000);
         String review = (String) request.getParameter("review");
         String username = (String) request.getParameter("username");
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = (String) (request.getParameter("id"));
         int rating = Integer.parseInt(request.getParameter("rating"));
 		String reviewSql = "INSERT INTO ALBUM_REVIEWS (album_reviewid, album_id, review, rating,user_id) VALUES (?, ?, ?, ?, ?)";
     			PreparedStatement ps;
@@ -73,7 +73,7 @@ public class ReviewDispatcher extends HttpServlet {
 					ps = conn.prepareStatement(reviewSql);
 					{
 		    			ps.setInt(1, rand_id);
-		    			ps.setInt(2, id);
+		    			ps.setString(2, id);
 		    			ps.setString(3, review);
 		    			ps.setInt(4, rating);
 		    			ps.setInt(5, Helper.getUserID(username));
