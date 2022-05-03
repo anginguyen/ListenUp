@@ -7,26 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.google.gson.*;
-
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import Util.*;
 import java.sql.*;
-import java.io.*;
 
 public class Helper {
     /**
@@ -582,7 +571,6 @@ public class Helper {
         return false;
     }
 
-    
     public static void addUser(String email, String password, String name) throws SQLException {
     	Connection conn = null;
         try {
