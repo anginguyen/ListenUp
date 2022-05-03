@@ -76,7 +76,7 @@ public class Helper {
         return album;
     }
     
-    public static String getCover(String name) {
+    public static String getCover(String album) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -90,7 +90,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+name+"%';";
+				+ "WHERE album_name LIKE '%"+album+"%';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		cover = rs.getString("cover_url");
@@ -101,6 +101,121 @@ public class Helper {
   		}
         System.out.println("cover"+cover);
         return cover;
+    }
+    
+    public static String getCover(int id) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String cover = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_id LIKE '%"+id+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		cover = rs.getString("cover_url");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("cover"+cover);
+        return cover;
+    }
+    
+    public static String getArtist(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String artist = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM finalproj.ARTISTS as a "
+				+ "INNER JOIN finalproj.ALBUMS AS al on a.artist_id = al.artist_id "
+				+ "WHERE album_name LIKE '%"+album+"%' "
+				+"ORDER BY al.releasedate DESC;";
+		System.out.println(sql);
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		artist = rs.getString("artist_name");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("name "+artist);
+        return artist;
+    }
+    
+    public static String getDate(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String date = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name LIKE '%"+album+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		date = rs.getString("releasedate");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("date "+date);
+        return date;
+    }
+    
+    public static String getAlbumDuration(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int duration = 0;
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name = '"+album+"'"
+				+ " ORDER BY releasedate DESC;";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		duration = rs.getInt("duration");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("len "+ duration);
+        int secs = duration % 60;
+        int mins = duration / 60;
+        String dur = String.valueOf(mins) + " mins " + String.valueOf(secs) + " secs";
+        return dur;
     }
     
     public static String getUserName(String email) throws SQLException {
@@ -128,6 +243,38 @@ public class Helper {
         return pp;
     }
 
+    public static ArrayList<String> getSongs(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String artist = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM finalproj.SONGS as s "
+				+ "INNER JOIN finalproj.ALBUMS AS al on s.album_id = al.album_id "
+				+ "WHERE album_name = '"+album+"' "
+				+"ORDER BY s.position ASC;";
+		
+		ArrayList<String> songs = new ArrayList<String>();
+		System.out.println(sql);
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		songs.add(rs.getString("song_name"));
+        		System.out.println("song: "+rs.getString("song_name"));
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        
+        return songs;
+    }
 
     /**
      * check if the email and password matches
