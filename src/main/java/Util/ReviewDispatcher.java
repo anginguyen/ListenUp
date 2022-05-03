@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 
 import java.io.IOException;
@@ -66,24 +67,42 @@ public class ReviewDispatcher extends HttpServlet {
         String review = (String) request.getParameter("review");
         String username = (String) request.getParameter("username");
         String id = (String) (request.getParameter("id"));
-        int rating = Integer.parseInt(request.getParameter("rating"));
-		String reviewSql = "INSERT INTO ALBUM_REVIEWS (album_reviewid, album_id, review, rating,user_id) VALUES (?, ?, ?, ?, ?)";
-    			PreparedStatement ps;
-				try {
-					ps = conn.prepareStatement(reviewSql);
-					{
-		    			ps.setInt(1, rand_id);
-		    			ps.setString(2, id);
-		    			ps.setString(3, review);
-		    			ps.setInt(4, rating);
-		    			ps.setInt(5, Helper.getUserID(username));
-		    			int row = ps.executeUpdate();}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		response.sendRedirect("details.jsp?albumid="+id);
-		//request.getRequestDispatcher("details.jsp?="+Helper.getName(id)).forward(request, response);
+        if (username.compareToIgnoreCase("guest")==0){
+        	//request.setAttribute("guesterror", "true");
+        	HttpSession session = request.getSession();
+        	session.setAttribute("getAlert", "guest");//Just initialize a random variable.
+        	//request.getRequestDispatcher("details.jsp?albumid"+id).forward(request, response);
+        	response.sendRedirect("details.jsp?albumid="+id);
+        }
+        else {
+        	HttpSession session = request.getSession();
+        	session.setAttribute("getAlert", "user");
+	        int rating = Integer.parseInt(request.getParameter("rating"));
+			String reviewSql = "INSERT INTO ALBUM_REVIEWS (album_reviewid, album_id, review, rating,user_id) VALUES (?, ?, ?, ?, ?)";
+	    			PreparedStatement ps;
+					try {
+						ps = conn.prepareStatement(reviewSql);
+						{
+			    			ps.setInt(1, rand_id);
+			    			ps.setString(2, id);
+			    			ps.setString(3, review);
+			    			ps.setInt(4, rating);
+			    			ps.setInt(5, Helper.getUserID(username));
+			    			int row = ps.executeUpdate();}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			//recompute average rating and fix in sql
+			try {
+				Helper.update(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response.sendRedirect("details.jsp?albumid="+id);
+			//request.getRequestDispatcher("details.jsp?="+Helper.getName(id)).forward(request, response);
+        }
 	}
 
 	/**

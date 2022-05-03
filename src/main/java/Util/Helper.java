@@ -270,6 +270,12 @@ public class Helper {
     
     //returns avg rating from album id
     public static double getRating(String ID) {
+    	try {
+			update(ID);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
