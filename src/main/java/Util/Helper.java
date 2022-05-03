@@ -18,6 +18,7 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -185,6 +186,63 @@ public class Helper {
   		}
         System.out.println("date "+date);
         return date;
+    }
+    
+    public static int getID(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int albID = 0;
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name LIKE '%"+album+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		albID = rs.getInt("album_id");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("id "+albID);
+        return albID;
+    }
+    
+    public static Map<String,String> getReviews(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String,String> revs = new HashMap<>();;
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM album_reviews as rev "
+				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
+				+ "WHERE rev.album_id LIKE '%"+String.valueOf(Helper.getID(album))+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		String review = rs.getString("review");
+        		String username = rs.getString("username");
+        		revs.put(username,review);
+        		System.out.println("rev"+revs.get(username));
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return revs;
     }
     
     public static String getAlbumDuration(String album) {
