@@ -82,7 +82,7 @@ public class ReviewDispatcher extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		response.sendRedirect("details.jsp?name="+Helper.getName(id));
+		response.sendRedirect("details.jsp?albumid="+id);
 		//request.getRequestDispatcher("details.jsp?="+Helper.getName(id)).forward(request, response);
 	}
 

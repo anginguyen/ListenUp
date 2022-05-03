@@ -519,6 +519,31 @@ public class Helper {
         }
        
     }
+    
+    public static void update(String ID) throws SQLException {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+        	String sql = "UPDATE albums SET rating = ("
+        			+ "SELECT AVG(rating) "
+        			+ "FROM album_reviews "
+        			+ "WHERE album_id ='" + ID + "') "
+        			+ "WHERE (album_id ='" + ID + "')";
+        	PreparedStatement ps = conn.prepareStatement(sql);
+        	 int row = ps.executeUpdate();   
+        }
+        catch (Exception e) {
+        	 e.printStackTrace();
+        }
+       
+    }
 
     /**
      * Check if email is already registered
