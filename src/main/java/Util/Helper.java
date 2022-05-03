@@ -358,7 +358,7 @@ public class Helper {
   		} catch (SQLException sqle) {
   			
   		}
-        for (int i=0; i<reviews.size();i++) {
+        for (int i=0; i<reviews.size(); i++) {
         	System.out.println("Rev: "+reviews.get(i).get(0));
         }
         return reviews;
