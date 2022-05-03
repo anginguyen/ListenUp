@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,7 +118,7 @@
                 <div id="album-cover"></div>
 
                 <div id="album-details">
-                    <a href="details.html" id="album-title">SOUR</a>
+                    <a href="details.jsp?name=sour" id="album-title">SOUR</a>
                     <p>Olivia Rodrigo</p>
                     
                     <div id="rating">
