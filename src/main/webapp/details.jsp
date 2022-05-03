@@ -258,6 +258,7 @@
                         <td>Jack Antonoff</td>
                     </tr>
                     <tr>
+                    	<% Helper.update(ID); %>
                    		<% double rating = Helper.getRating(ID); %>
                         <td>Rating: <%=rating%></td>
                         <td></td>
