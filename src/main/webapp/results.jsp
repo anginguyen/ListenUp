@@ -91,6 +91,8 @@
     
     <%@ page import = "api.SearchAlbum"  %>
     <%@ page import = "se.michaelthelin.spotify.model_objects.specification.AlbumSimplified" %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.ArtistSimplified" %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.Image" %>
     <%@ page import = "se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest" %>
     <%
     	String query = (String) request.getParameter("album-search");
@@ -124,17 +126,29 @@
         </form>
         
         <div id="results">
-        	<% out.println("<p id=\"title\"> Results for " + query + "</p>"); %>
-            <p id="title">Results for "sour"</p>
+        	<% out.println("<p id=\"title\"> Results for " + query + "</p>");
+        		out.println("<p id=\"total-results\">Showing " + albums.length + " result(s)</p>");
+        	%>
 
-            <p id="total-results">Showing 1 of 1 result(s)</p>
-
+            
+		<% for(AlbumSimplified a : albums) { %>
             <div id="album-result">
-                <div id="album-cover"></div>
+                <div id="album-cover">
+                <% 
+                	Image[] covers = a.getImages();
+                	
+                %>
+                <img src = <%= covers[0].getUrl() %>>
+                </div>
 
                 <div id="album-details">
-                    <a href="details.jsp?name=sour" id="album-title">SOUR</a>
-                    <p>Olivia Rodrigo</p>
+                    <a href="details.jsp?albumid=<%= a.getId() %>" id="album-title"><%= a.getName() %></a>
+                    <% ArtistSimplified[] artists = a.getArtists();
+                    	for (ArtistSimplified art : artists) {
+                    		out.print("<p>" + art.getName() + "</p>" );
+                    	}
+                    %>
+                    <%-- <p><%= a.getArtists().clone(). %></p> --%>
                     
                     <div id="rating">
                         <i class="fa-solid fa-star filled"></i>
@@ -145,6 +159,7 @@
                     </div>
                 </div>
             </div>
+            <% } %>
         </div>
     </div>
 
