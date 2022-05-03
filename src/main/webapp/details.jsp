@@ -232,14 +232,14 @@
                     <!-- <p>1. brutal</p>
                     <p>2. traitor</p>
                     <p>3. drivers license</p> -->
-                    <p>4. 1 step forward, 3 steps back</p>
+                    <!-- <p>4. 1 step forward, 3 steps back</p>
                     <p>5. deja vu</p>
                     <p>6. good 4 u</p>
                     <p>7. enough for you</p>
                     <p>8. happier</p>
                     <p>9. jealousy, jealousy</p>
                     <p>10. favorite crime</p>
-                    <p>11. hope ur ok</p>
+                    <p>11. hope ur ok</p> -->
                 </div>
             </div>
 
