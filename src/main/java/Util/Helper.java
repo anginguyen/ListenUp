@@ -215,6 +215,33 @@ public class Helper {
         return albID;
     }
     
+    public static double getRating(String album) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        double rating = 0;
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_name LIKE '%"+album+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		rating = rs.getDouble("rating");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("rating "+rating);
+        return rating;
+    }
+    
     public static Map<String,String> getReviews(String album) {
     	Connection conn = null;
         try {
