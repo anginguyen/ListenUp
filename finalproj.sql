@@ -21,7 +21,7 @@ artist_id INT,
 FOREIGN KEY (artist_id) REFERENCES ARTISTS(artist_id),
 duration INT,
 releasedate VARCHAR(20),
-rating INT
+rating FLOAT
 );
 
 CREATE TABLE SONGS (
@@ -71,6 +71,7 @@ INSERT INTO `finalproj`.`users` (`user_id`, `username`, `email`, `pass`) VALUES 
 
 INSERT INTO `finalproj`.`artists` (`artist_id`, `artist_name`) VALUES ('1', 'Olivia Rodrigo');
 INSERT INTO `finalproj`.`albums` (`album_id`, `album_name`, `cover_url`, `artist_id`, `duration`, `releasedate`) VALUES ('1', 'Sour', 'https://upload.wikimedia.org/wikipedia/en/b/b2/Olivia_Rodrigo_-_SOUR.png', '1', '2081', '05/21/21');
+UPDATE `finalproj`.`albums` SET `rating` = '4.5' WHERE (`album_id` = '1');
 
 INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `releasedate`, `artist_id`, `album_id`) VALUES ('1', 'brutal', '144', '1', '05/21/21', '1', '1');
 INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `releasedate`, `artist_id`, `album_id`) VALUES ('2', 'traitor', '229', '2', '05/21/21', '1', '1');
