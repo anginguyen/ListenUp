@@ -32,44 +32,22 @@
             display: flex;
             justify-content: space-between;
         }
-        #album-cover {
-            background-color: grey;
-            width: 250px;
-            height: 250px;
-        }
         #album-cover img {
             width: 250px;
             height: 250px;
         }
         .section-header {
             font-size: 32px;
-            padding: 10px 0;
         }
         #middle {
             width: 55%;
-        }
-        #album-table {
-            text-align: left;
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 10%;
-        }
-        #album-table th {
-            font-size: 28px;
-            border-bottom: 2px solid white;
-            padding-bottom: 5px;
-            padding-left: 10px;
-        }
-        #album-table td {
-            padding-top: 5px;
-            padding-left: 10px;
         }
         #stars {
             display: flex;
             margin-bottom: 40px;
         }
-        #stars i, #overall-stars i {
-            color: #C4C4C4;
+        #stars i {
+           	color: #C4C4C4;
             font-size: 60px;
             padding-right: 10px;
         }
@@ -118,6 +96,16 @@
         }
         #overall-stars {
             display: flex;
+            align-items: center;
+        }
+        #overall-stars i {
+        	color: #2D7D19;
+        	font-size: 60px;
+            padding-right: 10px;
+        }
+        #overall-stars p {
+        	color: #C4C4C4;
+        	font-weight: 300;
         }
         #write-review-link {
             display: flex;
@@ -129,7 +117,7 @@
             margin-bottom: 15px;
         }
         .filled {
-            color: #1ED760;
+            color: #2D7D19;
             font-size: 15px;
         }
         .unfilled {
@@ -225,63 +213,16 @@
                 <div id="album-tracklist">
                 	<!-- sql -->
                     <p class="section-header">Tracklist</p>
-					<% ArrayList<String> songs = Helper.getSongs(ID); %>
-					<% for (int i =0; i<songs.size(); i++){
-						out.println("<p>"+(i+1)+". "+songs.get(i));
-					}
+					<% 
+						ArrayList<String> songs = Helper.getSongs(ID);
+						for (int i =0; i<songs.size(); i++) {
+							out.println("<p>"+(i+1)+". "+songs.get(i));
+						}
 					%>
-                    <!-- <p>1. brutal</p>
-                    <p>2. traitor</p>
-                    <p>3. drivers license</p> -->
-                    <!-- <p>4. 1 step forward, 3 steps back</p>
-                    <p>5. deja vu</p>
-                    <p>6. good 4 u</p>
-                    <p>7. enough for you</p>
-                    <p>8. happier</p>
-                    <p>9. jealousy, jealousy</p>
-                    <p>10. favorite crime</p>
-                    <p>11. hope ur ok</p> -->
                 </div>
             </div>
 
             <div id="middle">
-                <table id="album-table">
-                    <tr>
-                        <th>Album Details</th>
-                        <th>Featured Artists</th>
-                        <th>Production Credits</th>
-                    </tr>
-                    <tr>
-                    	<% String date = Helper.getDate(ID); %>
-                        <td>Release Date: <%=date%></td>
-                        <td></td>
-                        <td>Jack Antonoff</td>
-                    </tr>
-                    <tr>
-                    	<% Helper.update(ID); %>
-                   		<% double rating = Helper.getRating(ID); %>
-                        <td>Rating: <%=rating%></td>
-                        <td></td>
-                        <td>Paul Cartwright</td>
-                    </tr>
-                    <tr>
-                    	<% String duration = Helper.getAlbumDuration(ID); %>
-                        <td>Duration: <%=duration%> </td>
-                        <td></td>
-                        <td>Annie Clark</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>Andi Elloway</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>Josh Farro</td>
-                    </tr>
-                </table>
-
                 <div id="rate-and-review">
                     <p class="section-header">Rate and Review</p>
 
@@ -312,11 +253,22 @@
                     <p class="section-header">All Reviews</p>
         
                     <div id="overall-stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                    	<% 
+                    		double rating = Helper.getRating(ID);
+                    		int temp = (int)rating;
+                    		
+                    		// Output the number of stars according to the average rating
+                    		for (int i=0; i < temp; ++i) {
+                    			out.println("<i class=\"fa-solid fa-star filled\"></i>");
+                    		}
+                    		
+                    		// Half-star if applicable
+                    		if (rating-temp >= 0.3) {
+                    			out.println("<i class=\"fa-solid fa-star-half filled\"></i>");
+                    		}
+                    		
+                    		out.println("<p>(" + rating + ")</p>");
+                    	%>
                     </div>
             
                     <div id="write-review-link">
