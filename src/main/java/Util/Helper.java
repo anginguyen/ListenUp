@@ -52,6 +52,7 @@ public class Helper {
         return Constant.emailPattern.matcher(email).matches();
     }
     
+    //returns albumname given search query name
     public static String albumName(String name) {
     	Connection conn = null;
         try {
@@ -78,6 +79,7 @@ public class Helper {
         return album;
     }
     
+    //returns cover link from album id
     public static String getCover(String ID) {
     	Connection conn = null;
         try {
@@ -105,6 +107,7 @@ public class Helper {
         return cover;
     }
     
+    //returns cover link from int id OUTDATED
     public static String getCover(int id) {
     	Connection conn = null;
         try {
@@ -132,6 +135,7 @@ public class Helper {
         return cover;
     }
     
+    //returns artist name from album ID
     public static String getArtist(String ID) {
     	Connection conn = null;
         try {
@@ -161,6 +165,7 @@ public class Helper {
         return artist;
     }
     
+    //returns release date from album ID
     public static String getDate(String ID) {
     	Connection conn = null;
         try {
@@ -188,6 +193,7 @@ public class Helper {
         return date;
     }
     
+    //returns id from exact album name
     public static String getID(String album) {
     	Connection conn = null;
         try {
@@ -218,6 +224,7 @@ public class Helper {
         return albID;
     }
     
+    //returns name from exact id
     public static String getName(String ID) {
     	Connection conn = null;
         try {
@@ -245,6 +252,7 @@ public class Helper {
         return name;
     }
     
+    //returns userid from search username
     public static int getUserID(String user) {
     	Connection conn = null;
         try {
@@ -272,6 +280,7 @@ public class Helper {
         return userID;
     }
     
+    //returns avg rating from album id
     public static double getRating(String ID) {
     	Connection conn = null;
         try {
@@ -330,6 +339,7 @@ public class Helper {
         return revs;
     }
     
+    //returns reviews list (list of reviews, with review, username, rating) from album id
     public static ArrayList<ArrayList<String>> getRevs(String ID) {
     	Connection conn = null;
         try {
@@ -368,6 +378,7 @@ public class Helper {
         return reviews;
     }
     
+    //returns reviews list from exact username
     public static ArrayList<ArrayList<String>> getRevsUsername(String name) {
     	Connection conn = null;
         try {
@@ -406,6 +417,7 @@ public class Helper {
         return reviews;
     }
     
+    //returns reviews list from exact userID
     public static ArrayList<ArrayList<String>> getRevsUserID(String ID) {
     	Connection conn = null;
         try {
@@ -444,6 +456,7 @@ public class Helper {
         return reviews;
     }
     
+    //returns album duration from albumid
     public static String getAlbumDuration(String ID) {
     	Connection conn = null;
         try {
@@ -458,7 +471,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_id LIKE '"+ID+"'"
+				+ "WHERE album_id = '"+ID+"'"
 				+ " ORDER BY releasedate DESC;";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
@@ -475,6 +488,7 @@ public class Helper {
         return dur;
     }
     
+    //returns username from exact email
     public static String getUserName(String email) throws SQLException {
     	Connection conn = null;
         try {
@@ -500,6 +514,7 @@ public class Helper {
         return pp;
     }
 
+    //returns songs list from exact album id
     public static ArrayList<String> getSongs(String id) {
     	Connection conn = null;
         try {
@@ -660,6 +675,5 @@ public class Helper {
         return false;
         
     }
-    
 
 }
