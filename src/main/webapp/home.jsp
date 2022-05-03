@@ -57,7 +57,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "home.jsp"; //should be changed to profile page for user
+							disp2 = "account.jsp"; //should be changed to profile page for user
 							break;
 						}
 					}
@@ -75,7 +75,6 @@
             <a class="nav-link" href="<%=disp2%>"><%=em%></a>
             <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.jsp">Albums</a>
-            <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>
 

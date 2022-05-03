@@ -97,7 +97,6 @@
             <a class="nav-link" href="signup.jsp">Sign Up</a>
             <a class="nav-link" href="login.jsp">Login</a>
             <a class="nav-link" href="search.jsp">Albums</a>
-            <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>
 
