@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS ALBUM_REVIEWS;
 DROP TABLE IF EXISTS SONG_REVIEWS;
  
 CREATE TABLE ARTISTS (
- artist_id INT PRIMARY KEY,
+ artist_id varchar(50) PRIMARY KEY,
  artist_name varchar(50)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE ALBUMS (
 album_id VARCHAR(35) PRIMARY KEY,
 album_name VARCHAR(50),
 cover_url VARCHAR(100),
-artist_id INT,
+artist_id varchar(50),
 FOREIGN KEY (artist_id) REFERENCES ARTISTS(artist_id),
 duration INT,
 releasedate VARCHAR(20),
@@ -31,7 +31,7 @@ rating INT,
 duration INT NOT NULL,
 position INT NOT NULL,
 releasedate VARCHAR(20) NOT NULL,
-artist_id INT NOT NULL,
+artist_id varchar(50) NOT NULL,
 FOREIGN KEY (artist_id) REFERENCES ARTISTS(artist_id),
 album_id VARCHAR(35) NOT NULL,
 FOREIGN KEY (album_id) REFERENCES ALBUMS(album_id)
