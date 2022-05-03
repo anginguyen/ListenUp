@@ -27,33 +27,35 @@ public class SearchAlbum {
 		return accessToken;
 	}
 	
-	private static String get_query() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter a query: ");
-		String q = sc.nextLine();
-		return q;
-	}
-	
+//	private static String get_query() {
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("Enter a query: ");
+//		String q = sc.nextLine();
+//		return q;
+//	}
+//	
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
 			.setAccessToken(get_accessToken())
 			.build();
 	
-	private static final SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums(get_query()).build();
+//	private static final SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums(get_query()).build();
 	
-	public static void searchAlbums_Sync() {
-		try {
-			final Paging<AlbumSimplified> albumPaging = searchAlbumsRequest.execute();
-			AlbumSimplified[] albums = albumPaging.getItems();
-			for (AlbumSimplified a : albums) {
-				System.out.println(a.getName() + ": " + a.getId());
-			}
-		}
-		catch (IOException | SpotifyWebApiException | ParseException e) {
-	      System.out.println("Error: " + e.getMessage());
-	    }
-	}
-	
-	public static AlbumSimplified[] searchAlbums_Async() throws InterruptedException, ExecutionException {
+//	public static void searchAlbums_Sync() {
+//		try {
+//			final Paging<AlbumSimplified> albumPaging = searchAlbumsRequest.execute();
+//			AlbumSimplified[] albums = albumPaging.getItems();
+//			for (AlbumSimplified a : albums) {
+//				System.out.println(a.getName() + ": " + a.getId());
+//			}
+//		}
+//		catch (IOException | SpotifyWebApiException | ParseException e) {
+//	      System.out.println("Error: " + e.getMessage());
+//	    }
+//	}
+//	
+	public static AlbumSimplified[] searchAlbums_Async(String query) throws InterruptedException, ExecutionException {
+		SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums(query).build();
+
 		AlbumSimplified[] albums = null;
 		try {
 		      final CompletableFuture<Paging<AlbumSimplified>> pagingFuture = searchAlbumsRequest.executeAsync();
@@ -72,6 +74,6 @@ public class SearchAlbum {
 	
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
 //	    searchAlbums_Sync();
-	    searchAlbums_Async();
+	    searchAlbums_Async("test");
 	} 
 }

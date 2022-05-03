@@ -88,6 +88,20 @@
             color: #C4C4C4;
         }
     </style>
+    
+    <%@ page import = "api.SearchAlbum"  %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.AlbumSimplified" %>
+    <%@ page import = "se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest" %>
+    <%
+    	String query = (String) request.getParameter("album-search");
+    	System.out.println(query);
+    	AlbumSimplified[] albums = SearchAlbum.searchAlbums_Async(query);
+    	for (AlbumSimplified a : albums) {
+    		System.out.println(a.getName());
+    	}
+    
+    %>
+    
 </head>
 <body>
     <div id="navbar">
@@ -110,6 +124,7 @@
         </form>
         
         <div id="results">
+        	<% out.println("<p id=\"title\"> Results for " + query + "</p>"); %>
             <p id="title">Results for "sour"</p>
 
             <p id="total-results">Showing 1 of 1 result(s)</p>
