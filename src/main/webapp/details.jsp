@@ -286,9 +286,10 @@
                         <i class="fa-solid fa-star"></i>
                     </div>
 
-                    <form action="" method="POST" id="review-form">
+                    <form action="Test" method="GET" id="review-form">
                         <textarea id="review" name="review"></textarea>
-
+						
+						<input type="hidden" name="username" id="username" value=<%=em%>>
                         <input type="hidden" name="rating" id="rating">
 
                         <div id="error-msg"></div>
