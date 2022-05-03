@@ -90,7 +90,7 @@
         <div id="search">
             <p>Find an album:</p>
             
-            <form action="results.html" method="GET">
+            <form action="results.jsp" method="GET">
                 <input type="text" name="album-search" id="album-search">
             </form>
         </div>
