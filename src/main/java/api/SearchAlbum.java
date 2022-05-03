@@ -35,9 +35,7 @@ public class SearchAlbum {
 //		return q;
 //	}
 //	
-	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-			.setAccessToken(get_accessToken())
-			.build();
+
 	
 //	private static final SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums(get_query()).build();
 	
@@ -55,6 +53,9 @@ public class SearchAlbum {
 //	}
 //	
 	public static AlbumSimplified[] searchAlbums_Async(String query) throws InterruptedException, ExecutionException {
+		final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+				.setAccessToken(get_accessToken())
+				.build();
 		SearchAlbumsRequest searchAlbumsRequest = spotifyApi.searchAlbums(query).build();
 
 		AlbumSimplified[] albums = null;

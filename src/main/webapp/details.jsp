@@ -145,6 +145,11 @@
             background-color: #C4C4C4;
         }
     </style>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.ArtistSimplified" %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.TrackSimplified" %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.Album" %>
+    <%@ page import = "se.michaelthelin.spotify.model_objects.specification.Image" %>
+    <%@ page import = "api.AlbumDetails"  %>
 </head>
 <body>
 		<%@page import="java.util.*"
@@ -211,7 +216,31 @@
 
     <div class="container">
         <div id="album-name">
-        	<%String ID = (String)request.getParameter("albumid"); %>
+        	<%String ID = (String)request.getParameter("albumid");
+        		Album album = AlbumDetails.getAlbum(ID);
+       			ArtistSimplified[] artists = album.getArtists();
+       			
+       			// getting cover url
+       			Image[] covers = album.getImages();
+       			String cover = covers[0].getUrl();
+       			
+       			// getting tracks and total runtime
+       			TrackSimplified[] tracks = album.getTracks().getItems();
+       			int runtime = 0;
+       			for (TrackSimplified t : tracks) {
+       				runtime += (t.getDurationMs()*1000);
+       				
+       			}
+       			
+       			// adding artists to database
+       			for (ArtistSimplified artist : artists) {
+       				Helper.addArtist(artist.getId(), artist.getName());
+       				// adding album to database
+       				Helper.addAlbum(ID, album.getName(), cover, artist.getId(), runtime, album.getReleaseDate(), Helper.getRating(ID));
+       			}        	
+       		
+        		
+        	%>
         	<%String name = Helper.getName(ID); %>
        		<%String artist = Helper.getArtist(ID); %>
             <p id="title"> <%=name%> </p> <!-- sql -->
