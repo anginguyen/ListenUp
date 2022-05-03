@@ -79,7 +79,7 @@
             margin-top: 7%;
         }
         #rating i {
-            font-size: 40px;
+            font-size: 30px;
             padding-right: 2%;
         }
         .filled {

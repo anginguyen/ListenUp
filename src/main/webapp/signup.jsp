@@ -39,19 +39,30 @@
             width: 100%;
             margin-bottom: 10%;
         }
-        #signup-box button {
+        #submit-btn {
             color: #2A3343;
             font-size: 28px;
             background-color: white;
             border: none;
             border-radius: 10px;
             width: 100%;
+            margin-bottom: 10px;
         }
-        #signup-box button:hover {
+        #submit-btn:hover {
             color: white;
             background-color: #2D7D19;
         }
-        
+        #guest-btn {
+        	color: white;
+            font-size: 28px;
+            background-color: #1C2330;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+        }
+        #guest-btn:hover {
+            background-color: #2D7D19;
+        }
     </style>
 </head>
 <body>
@@ -95,8 +106,8 @@
                 <label for="confirm-password-signup">Confirm Password</label><br>
                 <input type="password" name="confirm-password-signup" id="confirm-password-signup">
 
-                <button type="submit">Create Account</button>
-                <a id ="guest" href="LoginDispatcher?email-login=guest@mail.com&password-login=guest">Sign-in as Guest</a>
+                <button type="submit" id="submit-btn">Create Account</button>
+                <button type="button" id="guest-btn" onClick="location.href='LoginDispatcher?email-login=guest@mail.com&password-login=guest';">Sign-In as Guest</button>
             </form>
         </div>
     </div>
