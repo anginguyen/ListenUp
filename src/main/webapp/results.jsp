@@ -52,6 +52,7 @@
             display: flex;
             padding: 20px;
             border-radius: 50px;
+            margin-bottom: 15px;
         }
         #album-cover {
             background-color: grey;
