@@ -214,6 +214,59 @@ public class Helper {
         System.out.println("id "+albID);
         return albID;
     }
+    public static String getName(int ID) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String name = "";
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_id = '"+ID+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		name = rs.getString("album_name");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("name "+name);
+        return name;
+    }
+    
+    public static int getUserID(String user) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int userID = 0;
+        //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
+		String sql = "SELECT * "
+				+ "FROM USERS "
+				+ "WHERE username LIKE '%"+user+"%';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		userID = rs.getInt("user_id");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        System.out.println("user "+userID);
+        return userID;
+    }
     
     public static double getRating(String album) {
     	Connection conn = null;

@@ -286,12 +286,12 @@
                         <i class="fa-solid fa-star"></i>
                     </div>
 
-                    <form action="Test" method="GET" id="review-form">
+                    <form action="ReviewDispatcher" method="GET" id="review-form">
                         <textarea id="review" name="review"></textarea>
 						
 						<input type="hidden" name="username" id="username" value=<%=em%>>
                         <input type="hidden" name="rating" id="rating">
-
+						<input type="hidden" name="id" id="albumid" value=<%=Helper.getID(name)%>>
                         <div id="error-msg"></div>
 
                         <div id="review-btns">
