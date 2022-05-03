@@ -206,8 +206,9 @@
 
     <div class="container">
         <div id="album-name">
-        	<%String name = Helper.getName((String)request.getParameter("albumid")); %>
-       		<%String artist = Helper.getArtist(name); %>
+        	<%String ID = (String)request.getParameter("albumid"); %>
+        	<%String name = Helper.getName(ID); %>
+       		<%String artist = Helper.getArtist(ID); %>
             <p id="title"> <%=name%> </p> <!-- sql -->
             <p id="artist"><%=artist%></p>
         </div>
@@ -216,15 +217,15 @@
             <div id="left">
                 <div id="album-cover">
                		 <!-- more generic -->
-               		 <% String cover = Helper.getCover(name); %>
-               		 <% ArrayList<ArrayList<String>> rev = Helper.getRevs(name); %>
+               		 <% String cover = Helper.getCover(ID); %>
+               		 <% ArrayList<ArrayList<String>> rev = Helper.getRevs(ID); %>
                 	<img src="<%=cover%>" alt="album cover">
                 </div>
 
                 <div id="album-tracklist">
                 	<!-- sql -->
                     <p class="section-header">Tracklist</p>
-					<% ArrayList<String> songs = Helper.getSongs(name); %>
+					<% ArrayList<String> songs = Helper.getSongs(ID); %>
 					<% for (int i =0; i<songs.size(); i++){
 						out.println("<p>"+(i+1)+". "+songs.get(i));
 					}
@@ -251,19 +252,19 @@
                         <th>Production Credits</th>
                     </tr>
                     <tr>
-                    	<% String date = Helper.getDate(name); %>
+                    	<% String date = Helper.getDate(ID); %>
                         <td>Release Date: <%=date%></td>
                         <td></td>
                         <td>Jack Antonoff</td>
                     </tr>
                     <tr>
-                   		<% double rating = Helper.getRating(name); %>
+                   		<% double rating = Helper.getRating(ID); %>
                         <td>Rating: <%=rating%></td>
                         <td></td>
                         <td>Paul Cartwright</td>
                     </tr>
                     <tr>
-                    	<% String duration = Helper.getAlbumDuration(name); %>
+                    	<% String duration = Helper.getAlbumDuration(ID); %>
                         <td>Duration: <%=duration%> </td>
                         <td></td>
                         <td>Annie Clark</td>
@@ -323,7 +324,7 @@
                     
                     <% 
                     	// Iterate through list of all reviews for this album
-                    	ArrayList<ArrayList<String>> allReviews = Helper.getRevs(name);
+                    	ArrayList<ArrayList<String>> allReviews = Helper.getRevs(ID);
                     	for (ArrayList<String> review : allReviews) {
                     %>
                     		<div class="review-box">

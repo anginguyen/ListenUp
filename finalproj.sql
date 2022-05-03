@@ -87,3 +87,8 @@ INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`,
 INSERT INTO `finalproj`.`album_reviews` (`album_reviewid`, `album_id`, `review`, `rating`, `user_id`) VALUES ('1', '6s84u2TUpR3wdUv4NgKA2j', 'this is such a touching album', '5', '2');
 INSERT INTO `finalproj`.`album_reviews` (`album_reviewid`, `album_id`, `review`, `rating`, `user_id`) VALUES ('2', '6s84u2TUpR3wdUv4NgKA2j', 'i cried listening to this', '5', '3');
 
+UPDATE `finalproj`.`albums` SET `rating` = (
+	SELECT AVG(rating)
+	FROM album_reviews
+	WHERE album_id = '6s84u2TUpR3wdUv4NgKA2j')
+WHERE (`album_id` = '6s84u2TUpR3wdUv4NgKA2j');

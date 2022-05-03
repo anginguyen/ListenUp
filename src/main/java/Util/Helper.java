@@ -77,7 +77,7 @@ public class Helper {
         return album;
     }
     
-    public static String getCover(String album) {
+    public static String getCover(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -91,7 +91,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+album+"%';";
+				+ "WHERE album_id = '"+ID+"';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		cover = rs.getString("cover_url");
@@ -131,7 +131,7 @@ public class Helper {
         return cover;
     }
     
-    public static String getArtist(String album) {
+    public static String getArtist(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -146,7 +146,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM finalproj.ARTISTS as a "
 				+ "INNER JOIN finalproj.ALBUMS AS al on a.artist_id = al.artist_id "
-				+ "WHERE album_name LIKE '%"+album+"%' "
+				+ "WHERE al.album_id = '"+ID+"' "
 				+"ORDER BY al.releasedate DESC;";
 		System.out.println(sql);
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
@@ -161,7 +161,7 @@ public class Helper {
         return artist;
     }
     
-    public static String getDate(String album) {
+    public static String getDate(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -175,7 +175,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+album+"%';";
+				+ "WHERE album_id = '"+ID+"';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		date = rs.getString("releasedate");
@@ -202,7 +202,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+album+"%';";
+				+ "WHERE album_name = '"+album+"';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		albID = rs.getString("album_id");
@@ -212,6 +212,9 @@ public class Helper {
   			
   		}
         System.out.println("id "+albID);
+        if (albID.isEmpty()) {
+        	albID = "null";
+        }
         return albID;
     }
     public static String getName(String ID) {
@@ -268,7 +271,7 @@ public class Helper {
         return userID;
     }
     
-    public static double getRating(String album) {
+    public static double getRating(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -282,7 +285,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+album+"%';";
+				+ "WHERE album_id LIKE '"+ID+"';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		rating = rs.getDouble("rating");
@@ -326,7 +329,7 @@ public class Helper {
         return revs;
     }
     
-    public static ArrayList<ArrayList<String>> getRevs(String album) {
+    public static ArrayList<ArrayList<String>> getRevs(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -342,7 +345,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM album_reviews as rev "
 				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
-				+ "WHERE rev.album_id LIKE '%"+Helper.getID(album)+"%';";
+				+ "WHERE rev.album_id = '"+ID+"';";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		String reviewText = rs.getString("review");
@@ -364,7 +367,7 @@ public class Helper {
         return reviews;
     }
     
-    public static String getAlbumDuration(String album) {
+    public static String getAlbumDuration(String ID) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -378,7 +381,7 @@ public class Helper {
         //Select cover_url FROM finalproj.albums where album_name LIKE '%Sour%';
 		String sql = "SELECT * "
 				+ "FROM albums "
-				+ "WHERE album_name LIKE '%"+album+"%'"
+				+ "WHERE album_id LIKE '"+ID+"'"
 				+ " ORDER BY releasedate DESC;";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
@@ -420,7 +423,7 @@ public class Helper {
         return pp;
     }
 
-    public static ArrayList<String> getSongs(String album) {
+    public static ArrayList<String> getSongs(String id) {
     	Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -435,7 +438,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM finalproj.SONGS as s "
 				+ "INNER JOIN finalproj.ALBUMS AS al on s.album_id = al.album_id "
-				+ "WHERE album_name LIKE '%"+album+"%' "
+				+ "WHERE al.album_id = '"+id+"' "
 				+"ORDER BY s.position ASC;";
 		
 		ArrayList<String> songs = new ArrayList<String>();
