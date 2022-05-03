@@ -252,7 +252,8 @@
                         <td>Jack Antonoff</td>
                     </tr>
                     <tr>
-                        <td>Rating: 4.6</td>
+                   		<% double rating = Helper.getRating(name); %>
+                        <td>Rating: <%=rating%></td>
                         <td></td>
                         <td>Paul Cartwright</td>
                     </tr>
