@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,15 +48,41 @@
     </style>
 </head>
 <body>
+	<% 
+	
+			Cookie[] cookies  = request.getCookies();
+			String em = "Sign Up";
+			String red = "Login";
+			String disp = "login.jsp";
+			String disp2 = "signup.jsp";
+			if(cookies!=null){	
+				String temp ="";
+				try{
+					for(Cookie c : cookies){
+						if(c.getName().equals("em")){ 
+							em=c.getValue();
+							temp = em.replaceAll("=", " ");
+							em="" + temp +"";
+							red = "Logout";
+							disp = "LogoutDispatcher";
+							disp2 = "home.jsp"; //should be changed to profile page for user
+							break;
+						}
+					}
+				}
+				catch (Exception E){
+				}
+			}
+	%>
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="signup.jsp">Sign Up</a>
-            <a class="nav-link" href="login.jsp">Login</a>
-            <a class="nav-link" href="search.html">Albums</a>
+            <a class="nav-link" href="<%=disp2%>"><%=em%></a>
+            <a class="nav-link" href="<%=disp%>"><%=red%></a>
+            <a class="nav-link" href="search.jsp">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>

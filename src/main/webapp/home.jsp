@@ -75,7 +75,7 @@
         <div id="nav-right"> 
             <a class="nav-link" href="<%=disp2%>"><%=em%></a>
             <a class="nav-link" href="<%=disp%>"><%=red%></a>
-            <a class="nav-link" href="search.html">Albums</a>
+            <a class="nav-link" href="search.jsp">Albums</a>
             <a class="nav-link" id="spotify-nav" href="">Connect with Spotify</a>
         </div>
     </div>
