@@ -21,14 +21,6 @@ a:hover, a:not(:hover), button:hover, button:not(:hover) {
     justify-content: space-between;
     align-items: center;
 }
-#guest {
-    background-color: #1C2330;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    padding-left: 40%;
-}
 #listenup-name {
     color: white;
     font-size: 42px;

@@ -38,26 +38,31 @@
             width: 100%;
             margin-bottom: 10%;
         }
-        #login-box button {
+        #login-btn {
             color: #2A3343;
             font-size: 28px;
             background-color: white;
             border: none;
             border-radius: 10px;
             width: 100%;
+            margin-bottom: 10px;
         }
-        #login-box button:hover {
+        #login-btn:hover, #guest-login:hover {
             color: white;
             background-color: #2D7D19;
         }
         #login-box a {
             font-size: 24px;
         }
-        #forgot-password-link:hover, #spotify-login {
+        #forgot-password-link:hover {
             color: #2D7D19;
         }
-        #spotify-login:hover {
-            color: #49c929;
+        #guest-login {
+            background-color: #1C2330;
+            font-size: 28px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
         }
         #register-redirect {
             text-align: center;
@@ -112,24 +117,17 @@
                 <label for="password-login">Password</label><br>
                 <input type="password" name="password-login" id="password-login">
                 
-                <button type="submit">Log In</button>
+                <button type="submit" id="login-btn">Log In</button>
+                <button type="button" onClick="location.href='LoginDispatcher?email-login=guest@mail.com&password-login=guest';" id="guest-login">Log In as Guest</button>
             </form>
             
            <!--  <a href="" id="forgot-password-link">Forgot your password?</a><br> -->
-
-            <a href="LoginDispatcher?email-login=guest@mail.com&password-login=guest" id="spotify-login">Login as Guest</a>
         </div>
 
         <div id="register-redirect">
             <p>New to ListenUp?</p>
-            <button id="redirect-btn">Create your ListenUp account now!</a>
+            <button type="button" id="redirect-btn" onClick="location.href='signup.jsp';">Create your ListenUp account now!</button>
         </div>
-
-        <script>
-            document.querySelector("#redirect-btn").onclick = function() {
-                location.href = "signup.jsp";
-            };
-        </script>
     </div>
 </body>
 </html>
