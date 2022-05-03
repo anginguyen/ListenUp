@@ -213,7 +213,7 @@
                 <div id="album-cover">
                		 <!-- more generic -->
                		 <% String cover = Helper.getCover(name); %>
-               		 <% Map<String,String> rev = Helper.getReviews(name); %>
+               		 <% ArrayList<ArrayList<String>> rev = Helper.getRevs(name); %>
                 	<img src="<%=cover%>" alt="album cover">
                 </div>
 
