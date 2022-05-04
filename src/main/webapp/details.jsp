@@ -209,9 +209,9 @@
        			// getting tracks and total runtime
        			TrackSimplified[] tracks = album.getTracks().getItems();
        			int runtime = 0;
-       			for (TrackSimplified t : tracks) {
-       				runtime += (t.getDurationMs()*1000);
-       				
+       			for (int i = 0; i < tracks.length; i++) {
+       				runtime += (tracks[i].getDurationMs()*1000);
+       				Helper.addTrack(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
        			}
        			
        			// adding artists to database
