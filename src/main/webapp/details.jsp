@@ -211,7 +211,6 @@
        			int runtime = 0;
        			for (int i = 0; i < tracks.length; i++) {
        				runtime += (tracks[i].getDurationMs()*1000);
-       				Helper.addSong(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
        			}
        			
        			// adding artists to database
@@ -219,8 +218,11 @@
        				Helper.addArtist(artist.getId(), artist.getName());
        				// adding album to database
        				Helper.addAlbum(ID, album.getName(), coverUrl, artist.getId(), runtime, album.getReleaseDate());
-       			}        	
-       		
+       			}  
+       			
+       			for (int i = 0; i < tracks.length; i++) {
+       				Helper.addSong(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
+       			}
         		
         	%>
         	<%String name = Helper.getName(ID); %>
