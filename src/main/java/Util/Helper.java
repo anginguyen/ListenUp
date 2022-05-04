@@ -749,7 +749,7 @@ public class Helper {
 	            e.printStackTrace();
 	        }
 	        try {
-	        	String sql = "INSERT INTO ARTIST (artist_id, artist_name) VALUES (?, ?)";
+	        	String sql = "INSERT INTO ARTISTS (artist_id, artist_name) VALUES (?, ?)";
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.setString(1, artistid);
 	        	ps.setString(2, name);
