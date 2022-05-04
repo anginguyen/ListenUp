@@ -186,5 +186,6 @@
             albums[0].appendChild(newATag);
         }
     </script>
+    
 </body>
 </html>
