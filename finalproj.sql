@@ -71,17 +71,6 @@ INSERT INTO `finalproj`.`artists` (`artist_id`, `artist_name`) VALUES ('1', 'Oli
 INSERT INTO `finalproj`.`albums` (`album_id`, `album_name`, `cover_url`, `artist_id`, `duration`, `releasedate`) VALUES ('6s84u2TUpR3wdUv4NgKA2j', 'Sour', 'https://upload.wikimedia.org/wikipedia/en/b/b2/Olivia_Rodrigo_-_SOUR.png', '1', '2081', '05/21/21');
 UPDATE `finalproj`.`albums` SET `rating` = '4.6' WHERE (`album_id` = '6s84u2TUpR3wdUv4NgKA2j');
 
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('1', 'brutal', '144', '1', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('2', 'traitor', '229', '2', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('3', 'driver\'s license', '242', '3', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('4', '1 step forward, 3 steps back', '164', '4', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('5', 'deja vu', '226', '5', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('6', 'good 4 u', '178', '6', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('7', 'enough for you', '203', '7', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('8', 'happier', '176', '8', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('9', 'jealousy, jealousy', '173', '9', '1', '6s84u2TUpR3wdUv4NgKA2j');
-INSERT INTO `finalproj`.`songs` (`song_id`, `song_name`, `duration`, `position`, `artist_id`, `album_id`) VALUES ('10', 'favorite crime', '153', '10', '1', '6s84u2TUpR3wdUv4NgKA2j');
-
 INSERT INTO `finalproj`.`album_reviews` (`album_reviewid`, `album_id`, `review`, `rating`, `user_id`) VALUES ('1', '6s84u2TUpR3wdUv4NgKA2j', 'this is such a touching album', '5', '2');
 INSERT INTO `finalproj`.`album_reviews` (`album_reviewid`, `album_id`, `review`, `rating`, `user_id`) VALUES ('2', '6s84u2TUpR3wdUv4NgKA2j', 'i cried listening to this', '5', '3');
 
