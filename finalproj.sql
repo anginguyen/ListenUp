@@ -25,8 +25,8 @@ rating FLOAT
 );
 
 CREATE TABLE SONGS (
-song_id INT PRIMARY KEY NOT NULL,
-song_name VARCHAR(50) NOT NULL,
+song_id VARCHAR(40)  PRIMARY KEY NOT NULL,
+song_name VARCHAR(125) NOT NULL,
 duration INT NOT NULL,
 position INT NOT NULL,
 artist_id varchar(50) NOT NULL,
@@ -55,7 +55,7 @@ FOREIGN KEY (user_id) REFERENCES USERS(user_id)
 
 CREATE TABLE SONG_REVIEWS (
 song_reviewid INT PRIMARY KEY NOT NULL,
-song_id INT NOT NULL,
+song_id VARCHAR(40) NOT NULL,
 FOREIGN KEY (song_id) REFERENCES SONGS(song_id),
 review VARCHAR(280) NOT NULL,
 rating INT NOT NULL,
