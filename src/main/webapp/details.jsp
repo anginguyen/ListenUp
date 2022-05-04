@@ -204,7 +204,7 @@
        			
        			// getting cover url
        			Image[] covers = album.getImages();
-       			String cover = covers[0].getUrl();
+       			String coverUrl = covers[0].getUrl();
        			
        			// getting tracks and total runtime
        			TrackSimplified[] tracks = album.getTracks().getItems();
@@ -218,7 +218,7 @@
        			for (ArtistSimplified artist : artists) {
        				Helper.addArtist(artist.getId(), artist.getName());
        				// adding album to database
-       				Helper.addAlbum(ID, album.getName(), cover, artist.getId(), runtime, album.getReleaseDate());
+       				Helper.addAlbum(ID, album.getName(), coverUrl, artist.getId(), runtime, album.getReleaseDate());
        			}        	
        		
         		
