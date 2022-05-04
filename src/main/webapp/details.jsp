@@ -88,7 +88,7 @@
             color: #1C2330;
             background-color: white;
         }
-        #review-btns a:hover, #write-review-link a:hover {
+        #review-btns a:hover, #write-review-link a:hover, #back-link:hover {
             color: #2D7D19;
         }
         #all-reviews {
@@ -126,6 +126,63 @@
         }
         .username {
             color: #C4C4C4;
+        }
+        #chat {
+        	display: none;
+        }
+        #chat-box {
+        	background-color: #404D66;
+			width: 100%;
+        	height: 600px;
+        	display: flex;
+        	flex-direction: column;
+        	justify-content: space-between;
+        }
+        #messages {
+        	overflow-y: auto;
+        	max-height: 600px;
+        }
+        .user-msg, .recipient-msg {
+        	color: #2A3343;
+        	background-color: #C4C4C4;
+        	margin-top: 10px;
+        	margin-bottom: 10px;
+        	padding: 10px 15px;
+        	line-height: 24px;
+        	border-radius: 20px;
+        }
+        .user-msg {
+        	margin-left: 50%;
+        	margin-right: 10px;
+        	text-align: right;
+        }
+        .recipient-msg {
+        	margin-right: 50%;
+        	margin-left: 10px;
+        }
+        #msg-form {
+        	display: flex;
+        	justify-content: space-between;
+        }
+        #msg-input {
+        	font-size: 24px;
+            background-color: #2A3343;
+            width: 100%;
+            margin: 10px 0 10px 10px;
+            padding: 5px 10px;
+            border: none;
+        }
+        #send-btn {
+        	color: #2A3343;
+        	background-color: white;
+        	font-size: 24px;
+        	border: none;
+        	width: 100px;
+        	margin: 10px;
+        }
+        #send-btn:hover {
+        	color: white;
+        	background-color: #2A3343;
         }
         #right {
             text-align: center;
@@ -348,11 +405,29 @@
                     		</div>
                     <% } %>
                 </div>
+                
+                <div id="chat">
+                	<p class="section-header">Chat about <%=name %> with [username]</p>
+                	
+                	<div id="chat-box">
+                		<div id="messages">
+                			<div class="user-msg">Hello</div>
+                			<div class="recipient-msg">Hi</div>
+                		</div>
+                		
+                		<form action="" method="GET" id="msg-form">
+                			<input type="text" id="msg-input" name="msg-input">
+                			<button type="submit" id="send-btn">Send</button>
+                		</form>
+                	</div>
+                	
+                	<a id="back-link">Back to Reviews</a>
+                </div>
             </div>
 
             <div id="right">
                 <p>Chat with someone about this album:</p>
-                <button type="button">Chat</button>
+                <button type="button" id="chat-btn">Chat</button>
             </div>
         </div>
     </div>
@@ -437,7 +512,8 @@
                 errorMsgDiv.appendChild(errorMsg);
             }
         }
-
+        
+		// Toggles between review, all reviews, and chat windows
         document.querySelector("#review-btns a").onclick = function() {
             document.querySelector("#rate-and-review").style.display = "none";
             document.querySelector("#all-reviews").style.display = "initial";
@@ -447,6 +523,33 @@
             document.querySelector("#all-reviews").style.display = "none";
             document.querySelector("#rate-and-review").style.display = "initial";
         }
+        document.querySelector("#back-link").onclick = function() {
+        	document.querySelector("#all-reviews").style.display = "initial";
+        	document.querySelector("#chat").style.display = "none";
+        }
+        document.querySelector("#chat-btn").onclick = function() {
+        	document.querySelector("#rate-and-review").style.display = "none";
+        	document.querySelector("#all-reviews").style.display = "none";
+        	document.querySelector("#chat").style.display = "initial";
+        }
+        
+        // Displays new message in the chatbox when user sends 
+        document.querySelector("#msg-form").onsubmit = function(event) {
+        	event.preventDefault();
+        	
+        	var msg = document.querySelector("#msg-input").value;
+        	var msgBox = document.querySelector("#messages");
+        	if (msg != "") {
+        		var newMsg = document.createElement("div");
+        		newMsg.classList.add("user-msg");
+        		newMsg.innerHTML += msg;
+        		msgBox.appendChild(newMsg);
+        	}
+        	document.querySelector("#msg-input").value = "";
+        	msgBox.scrollTop = msgBox.scrollHeight ;
+        }
+        
+        
     </script>
     <script type="text/javascript"> window.onload = alertName; </script>
 </body>
