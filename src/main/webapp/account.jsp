@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +60,30 @@
             background-color: #404D66;
             padding: 20px;
             margin-bottom: 15px;
+            display: flex;
         }
         .review-box a {
             color: #C4C4C4;
         }
         .review-box a:hover {
             color: #909090;
+        }
+        .album-img {
+        	wisth: 150px;
+        	height: 150px;
+        }
+        .album-img img {
+        	width: 150px;
+        	height: auto;
+        	margin-right: 20px;
+        }
+        .filled {
+        	color: #2D7D19;
+        	font-size: 20px;
+        }
+        .unfilled {
+        	color: #C4C4C4;
+        	font-size: 20px;
         }
     </style>
 </head>
@@ -129,17 +148,36 @@
 
         <div id="reviews">
             <p id="title">My Reviews</p>
-
-            <div class="review-box">
-                <p>for <a href="details.jsp">SOUR</a>:</p>
-                <p id="review">I love this album</p>
-            </div>
-
-            <div class="review-box">
-                <p>for <a href="details.jsp">Donda</a>:</p>
-                <p id="review">mid</p>
-            </div>
+            
+            <%
+            	ArrayList<ArrayList<String>> allReviews = Helper.getRevsUsername(em);
+            	for (ArrayList<String> review : allReviews) {
+            		String albumName = Helper.getName(review.get(1));
+            %>
+            	<div class="review-box">
+            		<div class="album-img">
+            			<img src=<%=Helper.getCover(review.get(1)) %> alt=<%=albumName %>>
+            		</div>
+            		
+            		<div class="review-info">
+	            		<p>for <a href="details.jsp?albumid=<%=review.get(1) %>"><%=albumName %></a>:</p>
+	            		
+	            		<% for (int i=0; i < Integer.parseInt(review.get(2)); ++i) { %>
+	            			<i class="fa-solid fa-star filled"></i>
+	            		<% } %>
+	            		
+	            		<% for (int i=Integer.parseInt(review.get(2)); i < 5; ++i) { %>
+	            			<i class="fa-solid fa-star unfilled"></i>
+	            		<% } %>
+	            		
+	            		<p class="review"><%=review.get(0) %></p>
+            		</div>
+            	</div>
+			<% } %>
         </div>
     </div>
+    
+    
+    <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
 </body>
 </html>

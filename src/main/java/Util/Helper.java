@@ -393,11 +393,11 @@ public class Helper {
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		String reviewText = rs.getString("review");
-        		String username = rs.getString("username");
+        		String albumID = rs.getString("album_id");
         		String rating = Integer.toString(rs.getInt("rating"));
         		ArrayList<String> review = new ArrayList<>();
         		review.add(reviewText);
-        		review.add(username);
+        		review.add(albumID);
         		review.add(rating);
         		reviews.add(review);
         	}
