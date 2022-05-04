@@ -136,7 +136,7 @@
             <div id="profile-pic"></div>
 
             <div id="user-info">
-                <p id="username">Username</p>
+                <p id="username"><%=em %></p>
 
                 <div id="follows">
                     <p>x followers</p>
