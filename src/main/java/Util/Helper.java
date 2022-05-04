@@ -389,7 +389,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM album_reviews as rev "
 				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
-				+ "WHERE us.username = '"+name+"';";
+				+ "WHERE us.username = '"+name+"' order by rating desc;";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		String reviewText = rs.getString("review");
@@ -428,7 +428,7 @@ public class Helper {
 		String sql = "SELECT * "
 				+ "FROM album_reviews as rev "
 				+ "INNER JOIN USERS as us on rev.user_id = us.user_id "
-				+ "WHERE rev.user_id = '"+ID+"';";
+				+ "WHERE rev.user_id = '"+ID+"' order by rev.rating desc;";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
         	while(rs.next()) {
         		String reviewText = rs.getString("review");
