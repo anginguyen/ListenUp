@@ -652,6 +652,59 @@ public class Helper {
         return false;
     }
     
+    public static boolean checkSong(String songid) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		String sql = "SELECT * "
+				+ "FROM songs s "
+				+ "WHERE s.song_id ='"+songid+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	if (rs.next()) {
+        		return true;
+        	}
+
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return false;
+    }
+    
+    public static void addSong(String songid, String name, int duration, int position, String artistid, String albumid) throws SQLException {
+
+    	if (!checkSong(songid)) {
+	    	Connection conn = null;
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	            String db = "jdbc:mysql://localhost/finalproj";
+	            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	        	String sql = "INSERT INTO SONGS (song_id, song_name, duration, position, artist_id, album_id) VALUES (?, ?, ?, ?, ?, ?)";
+	        	PreparedStatement ps = conn.prepareStatement(sql);
+	        	 ps.setString(1, songid);
+	        	 ps.setString(2, name);
+	        	 ps.setInt(3, duration);
+	        	 ps.setInt(4, position);
+	        	 ps.setString(5, artistid);
+	        	 ps.setString(6,albumid);
+	        	 int row = ps.executeUpdate();   
+	        }
+	        catch (Exception e) {
+	        	 e.printStackTrace();
+	        }
+    	}
+    }
+    
     public static void addAlbum(String albumid, String name, String cover, String artistid, int runtime, String date) throws SQLException {
 
     	if (!checkAlbum(albumid)) {
