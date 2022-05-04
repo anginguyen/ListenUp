@@ -159,10 +159,11 @@
             //should be 4 but changed to demo
             for (let i=0; i < 3; ++i) {
                 let albumName = resultsJSON.albums.items[i].name;
+                let albumID = resultsJSON.albums.items[i].id;
                 let albumImg = resultsJSON.albums.items[i].images[0].url;
                 
                 let newATag = document.createElement("a");
-                newATag.setAttribute("href", "details.jsp?name=" + albumName);
+                newATag.setAttribute("href", "details.jsp?albumid=" + albumID);
 
                 let newImg = document.createElement("img");
                 newImg.setAttribute("src", albumImg);
