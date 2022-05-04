@@ -17,49 +17,34 @@
     <style>
         .container {
             width: 90%;
-            max-width: 1500px;
-            margin: 30px auto;
+            max-width: 1400px;
+            margin: auto;
             font-size: 24px;
         }
         #header {
             display: flex;
-            padding-bottom: 50px;
+            padding-bottom: 30px;
             border-bottom: 2px solid #C4C4C4;
             margin-bottom: 30px;
         }
-        #profile-pic {
-            background-color: grey;
-            width: 230px;
-            height: 200px;
-            margin-right: 30px;
-        }
-        #profile-pic img {
-            width: 200px;
-            height: auto;
-            margin-right: 30px;
-        }
-        #user-info {
-            width: 100%;
-        }
         #username {
-            font-size: 40px;
+            font-size: 50px;
             margin-top: 40px;
-        }
-        #follows {
-            display: flex;
-            justify-content: space-between;
-            width: 30%;
         }
         #title {
             font-size: 32px;
         }
         #reviews {
-            width: 50%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
         .review-box {
             background-color: #404D66;
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            width: 49%;
             display: flex;
         }
         .review-box a {
@@ -133,22 +118,11 @@
 
     <div class="container">
         <div id="header">
-            <div id="profile-pic"></div>
-
-            <div id="user-info">
-                <p id="username"><%=em %></p>
-
-                <div id="follows">
-                    <p>x followers</p>
-                    <p>x following</p>
-                    <p>x albums</p>
-                </div>
-            </div>
+            <p id="username">Hello, <%=em %>!</p>
         </div>
 
+		<p id="title">My Reviews</p>
         <div id="reviews">
-            <p id="title">My Reviews</p>
-            
             <%
             	ArrayList<ArrayList<String>> allReviews = Helper.getRevsUsername(em);
             	for (ArrayList<String> review : allReviews) {
