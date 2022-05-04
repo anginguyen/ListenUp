@@ -749,9 +749,7 @@ public class Helper {
 	            e.printStackTrace();
 	        }
 	        try {
-	        	Random random = new Random();
-	        	int rand_id = random.nextInt(1000000);
-	        	String sql = "INSERT INTO ALBUMS (album_id, name, cover, artistid, runtime, date) VALUES (?, ?, ?, ?, ?, ?)";
+	        	String sql = "INSERT INTO ARTIST (artist_id, artist_name) VALUES (?, ?)";
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.setString(1, artistid);
 	        	ps.setString(2, name);
