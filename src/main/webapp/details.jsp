@@ -211,7 +211,7 @@
        			int runtime = 0;
        			for (int i = 0; i < tracks.length; i++) {
        				runtime += (tracks[i].getDurationMs()*1000);
-       				Helper.addTrack(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
+       				Helper.addSong(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
        			}
        			
        			// adding artists to database
