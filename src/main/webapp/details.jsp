@@ -236,7 +236,7 @@
        			for (ArtistSimplified artist : artists) {
        				Helper.addArtist(artist.getId(), artist.getName());
        				// adding album to database
-       				Helper.addAlbum(ID, album.getName(), cover, artist.getId(), runtime, album.getReleaseDate(), Helper.getRating(ID));
+       				Helper.addAlbum(ID, album.getName(), cover, artist.getId(), runtime, album.getReleaseDate());
        			}        	
        		
         		
