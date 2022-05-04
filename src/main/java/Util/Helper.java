@@ -720,7 +720,7 @@ public class Helper {
 	        try {
 	        	Random random = new Random();
 	        	int rand_id = random.nextInt(1000000);
-	        	String sql = "INSERT INTO ALBUMS (album_id, name, cover, artistid, runtime, date) VALUES (?, ?, ?, ?, ?, ?)";
+	        	String sql = "INSERT INTO ALBUMS (album_id, album_name, cover_url, artist_id, duration, releasedate) VALUES (?, ?, ?, ?, ?, ?)";
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	 ps.setString(1, albumid);
 	        	 ps.setString(2, name);
