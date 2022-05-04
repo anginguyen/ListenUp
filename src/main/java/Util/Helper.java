@@ -604,6 +604,112 @@ public class Helper {
        
     }
     
+    public static boolean checkAlbum(String albumid) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		String sql = "SELECT * "
+				+ "FROM albums a "
+				+ "WHERE a.album_id ='"+albumid+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	if (rs.next()) {
+        		return true;
+        	}
+
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return false;
+    }
+    
+    public static boolean checkArtist(String artistid) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		String sql = "SELECT * "
+				+ "FROM artists a "
+				+ "WHERE a.artist_id ='"+artistid+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	if (rs.next()) {
+        		return true;
+        	}
+
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return false;
+    }
+    
+    public static void addAlbum(String albumid, String name, String cover, String artistid, int runtime, String date) throws SQLException {
+
+    	if (!checkAlbum(albumid)) {
+	    	Connection conn = null;
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	            String db = "jdbc:mysql://localhost/finalproj";
+	            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	        	Random random = new Random();
+	        	int rand_id = random.nextInt(1000000);
+	        	String sql = "INSERT INTO ALBUMS (album_id, name, cover, artistid, runtime, date) VALUES (?, ?, ?, ?, ?, ?)";
+	        	PreparedStatement ps = conn.prepareStatement(sql);
+	        	 ps.setString(1, albumid);
+	        	 ps.setString(2, name);
+	        	 ps.setString(3, cover);
+	        	 ps.setString(4, artistid);
+	        	 ps.setInt(5, runtime);
+	        	 ps.setString(6,date);
+	        	 int row = ps.executeUpdate();   
+	        }
+	        catch (Exception e) {
+	        	 e.printStackTrace();
+	        }
+    	}
+    }
+    
+    public static void addArtist(String artistid, String name) throws SQLException {
+
+    	if (!checkArtist(artistid)) {
+	    	Connection conn = null;
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	            String db = "jdbc:mysql://localhost/finalproj";
+	            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	        	Random random = new Random();
+	        	int rand_id = random.nextInt(1000000);
+	        	String sql = "INSERT INTO ALBUMS (album_id, name, cover, artistid, runtime, date) VALUES (?, ?, ?, ?, ?, ?)";
+	        	PreparedStatement ps = conn.prepareStatement(sql);
+	        	ps.setString(1, artistid);
+	        	ps.setString(2, name);
+	        	int row = ps.executeUpdate();   
+	        }
+	        catch (Exception e) {
+	        	 e.printStackTrace();
+	        }
+    	}
+    }
+    
     public static void update(String ID) throws SQLException {
     	Connection conn = null;
         try {
