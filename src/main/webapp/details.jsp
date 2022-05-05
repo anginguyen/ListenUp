@@ -33,7 +33,7 @@
             justify-content: space-between;
         }
         #left {
-        	width: 23%;
+        	max-width: 23%;
         }
         #album-cover img {
             width: 250px;
@@ -220,19 +220,6 @@
 			session.setMaxInactiveInterval(2);
 		%>
 	
-	 <%-- script type="text/javascript">
-		var Msg ='<%=session.getAttribute("getAlert")%>';
-		    if (Msg == "guest") {
-			 function alertName(){
-				 alert("Guests cannot make reviews. Please make an account to share your opinion!");
-			 } 
-		 }
-		    if (Msg == "user") {
-				 function alertName(){
-					 alert("Review has been submitted! ;)");
-				 } 
-			}
-	 </script>  --%>
 		<% 
 	
 			Cookie[] cookies  = request.getCookies();
