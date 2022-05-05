@@ -106,6 +106,8 @@
 				catch (Exception E){
 				}
 			}
+			
+			String username = request.getParameter("username");
 	%>
     <div id="navbar">
         <div id="nav-left">
@@ -121,13 +123,24 @@
 
     <div class="container">
         <div id="header">
-            <p id="username">Hello, <%=em %>!</p>
+            <p id="username">
+            	<% 
+            		if (username.equals(em)) { 
+            			out.println("Hello, " + em + "!");
+            		}
+            		else {
+            			out.println(username);
+            		}
+            	%>
+            		
+            </p>
         </div>
 
-		<p id="title">My Reviews</p>
+		<p id="title"><% if (username.equals(em)) out.println("My "); %>Reviews</p>
+		
         <div id="reviews">
             <%
-            	ArrayList<ArrayList<String>> allReviews = Helper.getRevsUsername(em);
+            	ArrayList<ArrayList<String>> allReviews = Helper.getRevsUsername(username);
             	for (ArrayList<String> review : allReviews) {
             		String albumName = Helper.getName(review.get(1));
             		int rating = Integer.parseInt(review.get(2));
