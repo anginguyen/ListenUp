@@ -32,6 +32,9 @@
             display: flex;
             justify-content: space-between;
         }
+        #left {
+        	width: 23%;
+        }
         #album-cover img {
             width: 250px;
             height: 250px;
@@ -99,7 +102,6 @@
             align-items: center;
         }
         #overall-stars i {
-        	color: #2D7D19;
         	font-size: 60px;
             padding-right: 10px;
         }
@@ -210,6 +212,7 @@
 </head>
 <body>
 		<%@page import="java.util.*"
+		import="java.lang.Math.*"
 	    import ="Util.Helper"
 	    %>
 	    
@@ -217,7 +220,7 @@
 			session.setMaxInactiveInterval(2);
 		%>
 	
-	 <script type="text/javascript">
+	 <%-- script type="text/javascript">
 		var Msg ='<%=session.getAttribute("getAlert")%>';
 		    if (Msg == "guest") {
 			 function alertName(){
@@ -229,7 +232,7 @@
 					 alert("Review has been submitted! ;)");
 				 } 
 			}
-	 </script> 
+	 </script>  --%>
 		<% 
 	
 			Cookie[] cookies  = request.getCookies();
@@ -247,7 +250,7 @@
 							em="" + temp +"";
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "account.jsp?username=" + em; //should be changed to profile page for user
+							disp2 = "account.jsp?username=" + em; 
 							break;
 						}
 					}
@@ -263,7 +266,12 @@
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href="<%=disp2%>"><%=em%></a>
+        	<% if (em.equals("guest")) { %>
+        		<p class="disabled">Guest</p>
+        	<% } else { %>
+            	<a class="nav-link" href="<%=disp2%>"><%=em%></a>
+            <% } %>
+            
             <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.jsp">Albums</a>
         </div>
@@ -367,7 +375,12 @@
                     		
                     		// Half-star if applicable
                     		if (rating-temp >= 0.3) {
-                    			out.println("<i class=\"fa-solid fa-star-half filled\"></i>");
+                    			out.println("<i class=\"fa-solid fa-star-half-stroke filled\"></i>");
+                    		}
+                    		
+                    		// Rest of the stars 
+                    		for (double i=Math.ceil(rating); i < 5; ++i) {
+                    			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
                     		}
                     		
                     		out.println("<p>(" + rating + ")</p>");
@@ -407,7 +420,7 @@
                 </div>
                 
                 <div id="chat">
-                	<p class="section-header">Chat about <%=name %> with [username]</p>
+                	<p class="section-header">Chat about <%=name %></p>
                 	
                 	<div id="chat-box">
                 		<div id="messages">
@@ -433,124 +446,6 @@
     </div>
 
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
-
-    <script>
-        var stars = Array.from(document.querySelectorAll("#stars i"));
-        var clicked = false;
-        var starClicked = null;
-        var rating = document.querySelector("#rating");
-        
-        for (let i=0; i < stars.length; ++i) {
-            // Sticks color to stars for user's rating
-            stars[i].onclick = function() {
-                changeStarColor(0, i);
-                clicked = true;
-                starClicked = i;
-                rating.value = starClicked+1;
-            }
-
-            // Changes all stars to the one that user is hovering over
-            stars[i].onmouseover = function() {
-                if (!clicked) {
-                    changeStarColor(0, i);
-                }
-                else {
-                    changeStarColor(starClicked+1, i);
-                }
-            }
-
-            // Resets the star colors
-            stars[i].onmouseleave = function() {
-                // Resets all star colors since user hasn't rated
-                if (!clicked) {
-                    for (let j=0; j < stars.length; ++j) {
-                        stars[j].style.color = "#C4C4C4";
-                    }
-                }
-                // Resets only the stars that come after user's rating
-                else {
-                    for (let j=starClicked+1; j < stars.length; ++j) {
-                        stars[j].style.color = "#C4C4C4";
-                    }
-                }
-            }
-        }
-
-        // Sets color of all stars before and on the one that the user is on
-        function changeStarColor(start, placement) {
-            for (let i=start; i < stars.length; ++i) {
-                if (i <= placement) {
-                    stars[i].style.color = "#2D7D19";
-                }
-                else {
-                    stars[i].style.color = "#C4C4C4";
-                }
-            }
-        }
-
-        // Review form validation 
-        document.querySelector("#review-form").onsubmit = function(event) {
-            var review = document.querySelector("#review");
-            var errorMsgDiv = document.querySelector("#error-msg");
-            
-            // Clears any old error messages
-            errorMsgDiv.innerHTML = "";
-
-            // Empty rating error
-            if (rating.value == "") {
-                event.preventDefault();
-                var errorMsg = document.createElement("p");
-                errorMsg.innerHTML = "Please provide a rating.";
-                errorMsgDiv.appendChild(errorMsg);
-            }
-
-            // Empty review error
-            if (review.value == "") {
-                event.preventDefault();
-                var errorMsg = document.createElement("p");
-                errorMsg.innerHTML = "Please write a review.";
-                errorMsgDiv.appendChild(errorMsg);
-            }
-        }
-        
-		// Toggles between review, all reviews, and chat windows
-        document.querySelector("#review-btns a").onclick = function() {
-            document.querySelector("#rate-and-review").style.display = "none";
-            document.querySelector("#all-reviews").style.display = "initial";
-        }
-
-        document.querySelector("#write-review-link a").onclick = function() {
-            document.querySelector("#all-reviews").style.display = "none";
-            document.querySelector("#rate-and-review").style.display = "initial";
-        }
-        document.querySelector("#back-link").onclick = function() {
-        	document.querySelector("#all-reviews").style.display = "initial";
-        	document.querySelector("#chat").style.display = "none";
-        }
-        document.querySelector("#chat-btn").onclick = function() {
-        	document.querySelector("#rate-and-review").style.display = "none";
-        	document.querySelector("#all-reviews").style.display = "none";
-        	document.querySelector("#chat").style.display = "initial";
-        }
-        
-        // Displays new message in the chatbox when user sends 
-        document.querySelector("#msg-form").onsubmit = function(event) {
-        	event.preventDefault();
-        	
-        	var msg = document.querySelector("#msg-input").value;
-        	var msgBox = document.querySelector("#messages");
-        	if (msg != "") {
-        		var newMsg = document.createElement("div");
-        		newMsg.classList.add("user-msg");
-        		newMsg.innerHTML += msg;
-        		msgBox.appendChild(newMsg);
-        	}
-        	document.querySelector("#msg-input").value = "";
-        	msgBox.scrollTop = msgBox.scrollHeight ;
-        }
-        
-        
-    </script>
-    <script type="text/javascript"> window.onload = alertName; </script>
+    <script src="javascript/details.js"></script>
 </body>
 </html>

@@ -26,7 +26,10 @@ a:hover, a:not(:hover), button:hover, button:not(:hover) {
     font-size: 42px;
     padding-left: 30px;
 }
-.nav-link {
+#nav-right {
+	display: flex;
+}
+.nav-link, .disabled {
     color: white;
     font-size: 28px;
     font-weight: 300;

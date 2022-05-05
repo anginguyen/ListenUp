@@ -79,6 +79,7 @@
         }
        .rating i {
             font-size: 24px;
+            margin-right: 2px;
         }
         .rating-p {
         	font-weight: 300;
@@ -87,7 +88,7 @@
         .filled {
             color:#2D7D19;
         }
-        .not-filled {
+        .unfilled {
             color: #C4C4C4;
         }
     </style>
@@ -146,8 +147,13 @@
         </div>
 
         <div id="nav-right"> 
-            <a class="nav-link" href=<%=disp2 %>><%=em %></a>
-            <a class="nav-link" href=<%=disp %>><%=red %></a>
+        	<% if (em.equals("guest")) { %>
+        		<p class="disabled">Guest</p>
+        	<% } else { %>
+            	<a class="nav-link" href="<%=disp2%>"><%=em%></a>
+            <% } %>
+            
+            <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.jsp">Albums</a>
         </div>
     </div>
@@ -195,11 +201,16 @@
                     		
                     		// Half-star if applicable
                     		if (rating-temp >= 0.3) {
-                    			out.println("<i class=\"fa-solid fa-star-half filled\"></i>");
+                    			out.println("<i class=\"fa-solid fa-star-half-stroke filled\"></i>");
                     		}
                     		
                     		if (rating == 0) {
                     			out.println("<p>No reviews yet</p>");
+                    		}
+                    		else {
+                    			for (double i=Math.ceil(rating); i < 5; ++i) {
+                        			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
+                        		}
                     		}
                     		
                     		out.println("<p class=\"rating-p\">(" + rating + ")</p>");

@@ -70,6 +70,9 @@
         	color: #C4C4C4;
         	font-size: 20px;
         }
+        .review {
+        	line-height: 24px;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +130,7 @@
             	ArrayList<ArrayList<String>> allReviews = Helper.getRevsUsername(em);
             	for (ArrayList<String> review : allReviews) {
             		String albumName = Helper.getName(review.get(1));
+            		int rating = Integer.parseInt(review.get(2));
             %>
             	<div class="review-box">
             		<div class="album-img">
@@ -136,11 +140,11 @@
             		<div class="review-info">
 	            		<p>for <a href="details.jsp?albumid=<%=review.get(1) %>"><%=albumName %></a>:</p>
 	            		
-	            		<% for (int i=0; i < Integer.parseInt(review.get(2)); ++i) { %>
+	            		<% for (int i=0; i < rating; ++i) { %>
 	            			<i class="fa-solid fa-star filled"></i>
 	            		<% } %>
 	            		
-	            		<% for (int i=Integer.parseInt(review.get(2)); i < 5; ++i) { %>
+	            		<% for (int i=rating; i < 5; ++i) { %>
 	            			<i class="fa-solid fa-star unfilled"></i>
 	            		<% } %>
 	            		
