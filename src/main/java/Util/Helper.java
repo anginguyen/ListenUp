@@ -575,6 +575,32 @@ public class Helper {
         }
         return false;
     }
+    
+    public static boolean checkUsername(String username) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		String sql = "SELECT * "
+				+ "FROM users u "
+				+ "WHERE u.username ='"+username+"';";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	if (rs.next()) {
+//        		System.out.println("Already registered");
+        		return true;
+        	}
+
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return false;
+    }
+
 
     public static void addUser(String email, String password, String name) throws SQLException {
     	Connection conn = null;

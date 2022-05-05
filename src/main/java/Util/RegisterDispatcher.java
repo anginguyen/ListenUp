@@ -78,6 +78,9 @@ public class RegisterDispatcher extends HttpServlet {
         if(Helper.emailAlreadyRegistered(email)==true) {
         	error+="error";
         }
+        if (Helper.checkUsername(name)) {
+        	error += "error";
+        }
         if (error.equals("")) {
         	try {
         		Helper.addUser(email, pass_c, name);
