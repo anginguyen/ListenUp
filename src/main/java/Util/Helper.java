@@ -479,7 +479,40 @@ public class Helper {
         int secs = duration % 60;
         int mins = duration / 60;
         String dur = String.valueOf(mins) + " mins " + String.valueOf(secs) + " secs";
+        if (mins > 60) {
+        	int mins_new = mins % 60;
+        	int hours = mins / 60;
+        	dur = String.valueOf(hours) + " hours " + String.valueOf(mins_new) + " minutes";
+        }
         return dur;
+    }
+    
+    // returns album release date from id
+    public static String getReleaseDate(String ID) {
+    	Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String db = "jdbc:mysql://localhost/finalproj";
+            conn = DriverManager.getConnection(db, Constant.DBUserName, Constant.DBPassword);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String date = "";
+        
+		String sql = "SELECT * "
+				+ "FROM albums "
+				+ "WHERE album_id = '"+ID+"'"
+				+ " ORDER BY releasedate DESC;";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql);) {
+        	while(rs.next()) {
+        		date = rs.getString("releasedate");
+        	}
+ 			
+  		} catch (SQLException sqle) {
+  			
+  		}
+        return date;
     }
     
     //returns username from exact email

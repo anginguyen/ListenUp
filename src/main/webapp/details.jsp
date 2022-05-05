@@ -203,6 +203,24 @@
             color: #404D66;
             background-color: #C4C4C4;
         }
+        #album-table {
+            text-align: left;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 10%;
+        }
+        #album-table th {
+            font-size: 28px;
+            border-bottom: 2px solid white;
+            padding-bottom: 5px;
+            padding-left: 10px;
+        }
+        #album-table td {
+            padding-top: 5px;
+            padding-left: 10px;
+        }
+        
+        
     </style>
     <%@ page import = "se.michaelthelin.spotify.model_objects.specification.ArtistSimplified" %>
     <%@ page import = "se.michaelthelin.spotify.model_objects.specification.TrackSimplified" %>
@@ -276,10 +294,12 @@
        			
        			// getting tracks and total runtime
        			TrackSimplified[] tracks = album.getTracks().getItems();
-       			int runtime = 0;
+       			Integer runtime = 0;
        			for (int i = 0; i < tracks.length; i++) {
-       				runtime += (tracks[i].getDurationMs()*1000);
+       				System.out.println("Duration of this song: " + tracks[i].getDurationMs()/1000);
+       				runtime += (tracks[i].getDurationMs()/1000);
        			}
+       			System.out.println("Total runtime: " + runtime);
        			
        			// adding artists to database
        			for (ArtistSimplified artist : artists) {
@@ -321,6 +341,33 @@
             </div>
 
             <div id="middle">
+            
+            	<table id="album-table">
+                    <tr>
+                        <th>Album Details</th>
+                    </tr>
+                    <tr>
+                    	<% String date = Helper.getReleaseDate(ID); %>
+                        <td>Release Date: <%=date %></td>
+                    </tr>
+                    <tr>
+                    	<% Double rate = Helper.getRating(ID); 
+                    		if (rate == 0.0) {
+                    			out.println("<td>No reviews yet (0.0)</td>");
+                    		}
+                    		else {
+                    	%>
+                        <td>Rating: <%=rate %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                    	<% String duration = Helper.getAlbumDuration(ID); %>
+                        <td>Runtime: <%=duration %></td>
+                    </tr>
+                </table>
+            
+            
+            
                 <div id="rate-and-review">
                     <p class="section-header">Rate and Review</p>
 
