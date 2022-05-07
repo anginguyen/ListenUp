@@ -1,3 +1,17 @@
+var tracks = document.querySelectorAll(".track");
+var trackBtns = document.querySelectorAll(".play-btn");
+
+// Displays play button when user hovers over a song name
+for (let i=0; i < tracks.length; i++) {
+	tracks[i].onmouseover = function() {
+		trackBtns[i].style.visibility = "visible";
+	}
+	
+	tracks[i].onmouseleave = function() {
+		trackBtns[i].style.visibility = "hidden";
+	}
+}
+
 var stars = Array.from(document.querySelectorAll("#stars i"));
 var clicked = false;
 var starClicked = null;

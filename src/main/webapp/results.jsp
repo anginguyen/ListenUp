@@ -209,7 +209,7 @@
                     		}
                     		else {
                     			for (double i=Math.ceil(rating); i < 5; ++i) {
-                        			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
+                        			out.println("<i class=\"fa-solid fa-star unfilled\" style=\"font-weight: 100;\"></i>");
                         		}
                     		}
                     		

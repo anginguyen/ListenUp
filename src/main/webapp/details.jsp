@@ -43,6 +43,15 @@
         .section-header {
             font-size: 32px;
         }
+        .play-btn {
+        	font-size: 15px;
+        	padding-left: 15px;
+        	visibility: hidden;
+        }
+        .play-btn:hover {
+        	color: #2D7D19;
+        	transition: 0.3s;
+        }
         #middle {
             width: 55%;
         }
@@ -337,7 +346,7 @@
 					<%
 						ArrayList<String> songs = Helper.getSongs(ID);
 						for (int i =0; i<songs.size(); i++) {
-							out.println("<p>"+(i+1)+". "+songs.get(i));
+							out.println("<p class=\"track\">"+(i+1)+". "+songs.get(i) + "<a class=\"play-btn-a\"><i class=\"fa-solid fa-circle-play play-btn\"></i></a></p>");
 						}
 					%>
                 </div>
@@ -417,7 +426,7 @@
 
                     		// Rest of the stars
                     		for (double i=Math.ceil(rating); i < 5; ++i) {
-                    			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
+                    			out.println("<i class=\"fa-solid fa-star unfilled\" style=\"font-weight: 100;\"></i>");
                     		}
 
                     		out.println("<p>(" + rating + ")</p>");
@@ -442,7 +451,7 @@
                     			 			out.println("<i class=\"fa-solid fa-star filled\"></i>");
                     			 		}
                     			 		for (int i=revRating; i < 5; ++i) {
-                    			 			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
+                    			 			out.println("<i class=\"fa-solid fa-star unfilled\" style=\"font-weight: 100;\"></i>");
                     			 		}
                     			 	%>
                     			</div>
@@ -520,6 +529,60 @@
 	    	}
 	    });
     </script>
+    
+    <script>
+	    // Retrieves access token for Spotify API 
+	   let httpRequest = new XMLHttpRequest(); 
+	   let authEndpoint = 'https://accounts.spotify.com/api/token';
+	   httpRequest.open('POST', authEndpoint);
+	
+	   httpRequest.setRequestHeader('Authorization', 'Basic ' + btoa('bc70b7456e4046c99f46c807d5969037:4d4e2da2e3b5483192e6d10dc78fa6da'));
+	   httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	   httpRequest.send('grant_type=client_credentials');
+	
+	   httpRequest.onreadystatechange = function() {
+	       if(httpRequest.readyState == 4) {
+	           if(httpRequest.status == 200) {
+	               accessAPI(httpRequest.responseText);
+	           }
+	           else {
+	               console.log(httpRequest.status);
+	           }
+	       }
+	   }
+	
+	   // Calls API to get all album tracks
+	   function accessAPI(results) {
+	       let resultsJSON = JSON.parse(results);
+	
+	       let endpoint = "https://api.spotify.com/v1/albums/<%=ID%>/tracks";
+	       httpRequest.open("GET", endpoint);
+	       httpRequest.setRequestHeader('Authorization', 'Bearer ' + resultsJSON.access_token);
+	       httpRequest.send();
+	
+	       httpRequest.onreadystatechange = function() {
+	           if(httpRequest.readyState == 4) {
+	               if(httpRequest.status == 200) {
+	                      displayNewReleases(httpRequest.responseText);
+	               }
+	               else {
+	                   console.log(httpRequest.status);
+	               }
+	           }
+	       }
+	   }
+	
+	   // Adds Spotify link to each track 
+	   function displayNewReleases(results) {
+	       let resultsJSON = JSON.parse(results);
+	       
+	       let tracklistBtns = document.querySelectorAll(".play-btn-a");
+	       for (let i=0; i < tracklistBtns.length; ++i) {
+	           tracklistBtns[i].setAttribute("href", resultsJSON.items[i].external_urls.spotify);
+	           tracklistBtns[i].setAttribute("target", "_blank");
+	       }
+	   }
+	</script>
 
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
     <script src="javascript/details.js"></script>

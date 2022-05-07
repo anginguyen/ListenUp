@@ -158,7 +158,7 @@
 	            		<% } %>
 	            		
 	            		<% for (int i=rating; i < 5; ++i) { %>
-	            			<i class="fa-solid fa-star unfilled"></i>
+	            			<i class="fa-solid fa-star unfilled" style="font-weight: 100;"></i>
 	            		<% } %>
 	            		
 	            		<p class="review"><%=review.get(0) %></p>
