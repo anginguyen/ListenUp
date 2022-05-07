@@ -458,19 +458,36 @@
                 		<p class="section-header">Chat about <%=name %></p>
                 	
                 		<div id="chat-box">
-                			<div id="messages">
-                				<div class="user-msg">Hello</div>
-                				<div class="recipient-msg">Hi</div>
-                			</div>
+                			<div id="messages"></div>
                 		
-							<div id="msg-form">
+							<form id="msg-form">
 								<input type="text" id="msg-input">
-                				<button type="submit" id="send-btn" onclick="sendMessage();">Send</button>
-							</div>
+                				<button type="submit" id="send-btn">Send</button>
+							</form>
 
                 			<script>
-								var websocket = new WebSocket("ws://localhost:8080/ListenUp/ChatServerEndpoint");
-								websocket.onmessage = function processMessage(message) {
+                				var websocket = new WebSocket("ws://localhost:8080/ListenUp/ChatServerEndpoint");
+                				
+                				// Displays new message in the chatbox when user sends 
+	                			document.querySelector("#msg-form").onsubmit = function(event) {
+	                				event.preventDefault();
+	                				
+	                				var msg = document.querySelector("#msg-input").value;
+	                				var msgBox = document.querySelector("#messages");
+	                				if (msg != "") {
+	                					/* var newMsg = document.createElement("div");
+	                					newMsg.classList.add("user-msg");
+	                					newMsg.innerHTML += msg;
+	                					msgBox.appendChild(newMsg); */
+	                					
+	                					websocket.send(msg);
+	                					
+		                				document.querySelector("#msg-input").value = "";
+		                				msgBox.scrollTop = msgBox.scrollHeight;
+	                				}
+	                			}
+                				
+                				websocket.onmessage = function processMessage(message) {
 									var jsonData = JSON.parse(message.data);
 		 							if (jsonData.message != null){
 		 								var str = jsonData.message;
@@ -481,58 +498,31 @@
 		 								
 		 								if(mes[0] == <%=em%>){
 		 									messToAdd = document.createElement('div');
-		 									messToAdd.className = 'user-msg';
+		 									messToAdd.classList.add('user-msg');
 		 								}
-		 								else{
+		 								else {
 		 									messToAdd = document.createElement('div');
-		 									messToAdd.className = 'recipient-msg';
+		 									messToAdd.classList.add('recipient-msg');
 		 								}
 		 								messToAdd.innerHTML = mes[1];
 		 								containerToAppendTo.appendChild(messToAdd);
 		 							}
 								}
-								function sendMessage() {
-									websocket.send(msg-input.value);
-									msg-input.value = "";
-								}
 							</script>
 
                 		</div>
                 	
-                		<a id="back-link" onclick="hideChat();">Back to Reviews</a>
+                		<a id="back-link">Back to Reviews</a>
                 	</div>               
             </div>
 
             <div id="right">
                 <p>Chat with someone about this album:</p>
 
-                <button type="submit" id="chat-btn" onclick="showChat();">Chat</button>
-
+                <button type="submit" id="chat-btn">Chat</button>
             </div>
         </div>
     </div>
-    
-    
-    <script>
-    	function showChat(){
-    		document.getElementById('chat').style.display = "block";
-    	}
-    	function hideChat(){
-    		document.getElementById('chat').style.display = "none";
-    	}
-    </script>
-    
-    
-		
-	<script>
-		var input = document.getElementById("msg-input");
-		input.addEventListener("keypress", function(event) {
-  			if (event.key === "Enter") {
-    			event.preventDefault();
-    			document.getElementById("send-btn").click();
-  			}
-		});
-	</script>
 
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
     <script src="javascript/details.js"></script>

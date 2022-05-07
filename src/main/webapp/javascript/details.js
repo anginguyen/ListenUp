@@ -109,19 +109,3 @@ document.querySelector("#chat-btn").onclick = function() {
 	document.querySelector("#all-reviews").style.display = "none";
 	document.querySelector("#chat").style.display = "initial";
 }
-
-// Displays new message in the chatbox when user sends 
-document.querySelector("#msg-form").onsubmit = function(event) {
-	event.preventDefault();
-	
-	var msg = document.querySelector("#msg-input").value;
-	var msgBox = document.querySelector("#messages");
-	if (msg != "") {
-		var newMsg = document.createElement("div");
-		newMsg.classList.add("user-msg");
-		newMsg.innerHTML += msg;
-		msgBox.appendChild(newMsg);
-	}
-	document.querySelector("#msg-input").value = "";
-	msgBox.scrollTop = msgBox.scrollHeight ;
-}
