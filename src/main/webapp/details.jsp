@@ -473,7 +473,22 @@
 								websocket.onmessage = function processMessage(message) {
 									var jsonData = JSON.parse(message.data);
 		 							if (jsonData.message != null){
-		 								messagesTextArea.value += jsonData.message + '\n';
+		 								var str = jsonData.message;
+		 								const mes = str.split(":");
+		 								
+		 								var messToAdd;
+		 								var containerToAppendTo = document.getElementById('messages');
+		 								
+		 								if(mes[0] == <%=em%>){
+		 									messToAdd = document.createElement('div');
+		 									messToAdd.className = 'user-msg';
+		 								}
+		 								else{
+		 									messToAdd = document.createElement('div');
+		 									messToAdd.className = 'recipient-msg';
+		 								}
+		 								messToAdd.innerHTML = mes[1];
+		 								containerToAppendTo.appendChild(messToAdd);
 		 							}
 								}
 								function sendMessage() {
