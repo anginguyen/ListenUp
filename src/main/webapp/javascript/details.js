@@ -122,7 +122,7 @@ document.querySelector("#chat-btn").onclick = function() {
 	var username = document.querySelector("#username");
 	if (username.value == "Sign" || username.value == "guest") {
 		event.preventDefault();
-		alert("Please log in or make an account to share your opinion!");
+		alert("Please log in or make an account to chat about this album!");
 		return;
 	}
 	document.querySelector("#rate-and-review").style.display = "none";
