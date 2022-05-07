@@ -1,10 +1,8 @@
 package Util;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.json.Json;
@@ -21,35 +19,39 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value="/ChatServerEndpoint", configurator=ChatServerConfigurator.class)
 public class ChatServerEndpoint{
 	static Set<Session> users = Collections.synchronizedSet(new HashSet<Session>());
-	
+
 	@OnOpen
 	public void handleOpen(EndpointConfig endpointConfig, Session userSession) {
 		userSession.getUserProperties().put("username", endpointConfig.getUserProperties().get("username"));
 		users.add(userSession);
 	}
-	
+
 	@OnClose
 	public void handleClose(Session userSession) {
 		users.remove(userSession);
 	}
-	
+
 	@OnError
 	public void handleError(Throwable t) {
-		
+
 	}
-	
+
 	@OnMessage
-	public void handleMessage(String message, Session userSession) throws IOException {
+	public void handleMessage(String message, Session userSession) {
 		String username = (String) userSession.getUserProperties().get("username");
-		
+
 		if(username != null) {
 			users.stream().forEach(x -> {
-				try {x.getBasicRemote().sendText(buildJsonData(username, message));}
-				catch(Exception e) {e.printStackTrace();}
+				try {
+					x.getBasicRemote().sendText(buildJsonData(username, message));
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
 			});
 		}
 	}
-	
+
 	private String buildJsonData(String username, String message) {
 		JsonObject jsonObject = Json.createObjectBuilder().add("message", username+": "+message).build();
 		StringWriter stringWriter = new StringWriter();

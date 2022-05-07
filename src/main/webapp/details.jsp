@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
     <title>DETAILS | ListenUp</title>
+
 
     <style>
         .container {
@@ -219,8 +220,8 @@
             padding-top: 5px;
             padding-left: 10px;
         }
-        
-        
+
+
     </style>
     <%@ page import = "se.michaelthelin.spotify.model_objects.specification.ArtistSimplified" %>
     <%@ page import = "se.michaelthelin.spotify.model_objects.specification.TrackSimplified" %>
@@ -233,23 +234,23 @@
 		import="java.lang.Math.*"
 	    import ="Util.Helper"
 	    %>
-	    
+
 		<%
 			session.setMaxInactiveInterval(2);
 		%>
-	
-		<% 
-	
+
+		<%
+
 			Cookie[] cookies  = request.getCookies();
 			String em = "Sign Up";
 			String red = "Login";
 			String disp = "login.jsp";
 			String disp2 = "signup.jsp";
-			if(cookies!=null){	
+			if(cookies!=null){
 				String temp ="";
 				try{
 					for(Cookie c : cookies){
-						if(c.getName().equals("em")){ 
+						if(c.getName().equals("em")){
 							em=c.getValue();
 							temp = em.replaceAll("=", " ");
 							em="" + temp +"";
@@ -257,7 +258,7 @@
 							request.setAttribute("username", em);
 							red = "Logout";
 							disp = "LogoutDispatcher";
-							disp2 = "account.jsp?username=" + em; 
+							disp2 = "account.jsp?username=" + em;
 							break;
 						}
 					}
@@ -266,19 +267,19 @@
 				}
 			}
 	%>
-	
+
     <div id="navbar">
         <div id="nav-left">
             <a id="listenup-name" href="home.jsp">ListenUp</a>
         </div>
 
-        <div id="nav-right"> 
+        <div id="nav-right">
         	<% if (em.equals("guest")) { %>
         		<p class="disabled">Guest</p>
         	<% } else { %>
             	<a class="nav-link" href="<%=disp2%>"><%=em%></a>
             <% } %>
-            
+
             <a class="nav-link" href="<%=disp%>"><%=red%></a>
             <a class="nav-link" href="search.jsp">Albums</a>
         </div>
@@ -289,11 +290,11 @@
         	<%String ID = (String)request.getParameter("albumid");
         		Album album = AlbumDetails.getAlbum(ID);
        			ArtistSimplified[] artists = album.getArtists();
-       			
+
        			// getting cover url
        			Image[] covers = album.getImages();
        			String coverUrl = covers[0].getUrl();
-       			
+
        			// getting tracks and total runtime
        			TrackSimplified[] tracks = album.getTracks().getItems();
        			Integer runtime = 0;
@@ -302,18 +303,18 @@
        				runtime += (tracks[i].getDurationMs()/1000);
        			}
        			System.out.println("Total runtime: " + runtime);
-       			
+
        			// adding artists to database
        			for (ArtistSimplified artist : artists) {
        				Helper.addArtist(artist.getId(), artist.getName());
        				// adding album to database
        				Helper.addAlbum(ID, album.getName(), coverUrl, artist.getId(), runtime, album.getReleaseDate());
-       			}  
-       			
+       			}
+
        			for (int i = 0; i < tracks.length; i++) {
        				Helper.addSong(tracks[i].getId(), tracks[i].getName(), tracks[i].getDurationMs()*1000, i+1, artists[0].getId(), ID);
        			}
-        		
+
         	%>
         	<%String name = Helper.getName(ID); %>
        		<%String artist = Helper.getArtist(ID); %>
@@ -333,7 +334,7 @@
                 <div id="album-tracklist">
                 	<!-- sql -->
                     <p class="section-header">Tracklist</p>
-					<% 
+					<%
 						ArrayList<String> songs = Helper.getSongs(ID);
 						for (int i =0; i<songs.size(); i++) {
 							out.println("<p>"+(i+1)+". "+songs.get(i));
@@ -343,7 +344,7 @@
             </div>
 
             <div id="middle">
-            
+
             	<table id="album-table">
                     <tr>
                         <th>Album Details</th>
@@ -353,7 +354,7 @@
                         <td>Release Date: <%=date %></td>
                     </tr>
                     <tr>
-                    	<% Double rate = Helper.getRating(ID); 
+                    	<% Double rate = Helper.getRating(ID);
                     		if (rate == 0.0) {
                     			out.println("<td>No reviews yet (0.0)</td>");
                     		}
@@ -367,9 +368,9 @@
                         <td>Runtime: <%=duration %></td>
                     </tr>
                 </table>
-            
-            
-            
+
+
+
                 <div id="rate-and-review">
                     <p class="section-header">Rate and Review</p>
 
@@ -383,7 +384,7 @@
 
                     <form action="ReviewDispatcher" method="GET" id="review-form">
                         <textarea id="review" name="review"></textarea>
-						
+
 						<input type="hidden" name="username" id="username" value=<%=em%>>
                         <input type="hidden" name="rating" id="rating">
 						<input type="hidden" name="id" id="albumid" value=<%=Helper.getID(name)%>>
@@ -398,44 +399,44 @@
 
                 <div id="all-reviews">
                     <p class="section-header">All Reviews</p>
-        
+
                     <div id="overall-stars">
-                    	<% 
+                    	<%
                     		double rating = Helper.getRating(ID);
                     		int temp = (int)rating;
-                    		
+
                     		// Output the number of stars according to the average rating
                     		for (int i=0; i < temp; ++i) {
                     			out.println("<i class=\"fa-solid fa-star filled\"></i>");
                     		}
-                    		
+
                     		// Half-star if applicable
                     		if (rating-temp >= 0.3) {
                     			out.println("<i class=\"fa-solid fa-star-half-stroke filled\"></i>");
                     		}
-                    		
-                    		// Rest of the stars 
+
+                    		// Rest of the stars
                     		for (double i=Math.ceil(rating); i < 5; ++i) {
                     			out.println("<i class=\"fa-solid fa-star unfilled\"></i>");
                     		}
-                    		
+
                     		out.println("<p>(" + rating + ")</p>");
                     	%>
                     </div>
-            
+
                     <div id="write-review-link">
                         <a>Write a review</a>
                     </div>
-                    
-                    <% 
+
+                    <%
                     	// Iterate through list of all reviews for this album
                     	ArrayList<ArrayList<String>> allReviews = Helper.getRevs(ID);
                     	for (ArrayList<String> review : allReviews) {
                     %>
                     		<div class="review-box">
                     			<div class="user-stars">
-                    			 	<% 
-                    			 		// Rating 
+                    			 	<%
+                    			 		// Rating
                     			 		int revRating = Integer.valueOf(review.get(2));
                     			 		for (int i=0; i < revRating; ++i) {
                     			 			out.println("<i class=\"fa-solid fa-star filled\"></i>");
@@ -445,7 +446,7 @@
                     			 		}
                     			 	%>
                     			</div>
-                    			
+
                     			<%
                     				// Username & review
 	                    			out.println("<p class=\"username\">" + review.get(1) + "</p>");
@@ -454,75 +455,83 @@
                     		</div>
                     <% } %>
                 </div>
+                <script>
+					var websocket = new WebSocket("ws://localhost:8080/ListenUp/ChatServerEndpoint");
+					websocket.onmessage = function processMessage(message){
+						var jsonData = JSON.parse(message.data);
+		 				if (jsonData.message != null){
+		 					var str = jsonData.message;
+		 					const mes = str.split(":");
+
+		 					var messToAdd;
+		 					var containerToAppendTo = document.getElementById('messages');
+
+		 					if(mes[0] == "<%=em%>"){
+		 							messToAdd = document.createElement('div');
+		 							messToAdd.className = 'user-msg';
+		 					}
+		 					else{
+		 						messToAdd = document.createElement('div');
+		 						messToAdd.className = 'recipient-msg';
+		 					}
+		 					messToAdd.innerHTML = mes[1];
+		 					containerToAppendTo.appendChild(messToAdd);
+						}
+					}
+					function sendMessage() {
+						websocket.send(document.getElementById('msg-input').value);
+						document.getElementById('msg-input').value = "";
+					}
+				</script>
                 	<div id="chat">
                 		<p class="section-header">Chat about <%=name %></p>
-                	
+
                 		<div id="chat-box">
-                			<div id="messages"></div>
-                		
-							<form id="msg-form">
+                			<div id="messages">
+                				<div class="user-msg">Hello</div>
+                				<div class="recipient-msg">Hi</div>
+                			</div>
+
+							<div id="msg-form">
 								<input type="text" id="msg-input">
-                				<button type="submit" id="send-btn">Send</button>
-							</form>
-
-                			<script>
-                				var websocket = new WebSocket("ws://localhost:8080/ListenUp/ChatServerEndpoint");
-                				
-                				// Displays new message in the chatbox when user sends 
-	                			document.querySelector("#msg-form").onsubmit = function(event) {
-	                				event.preventDefault();
-	                				
-	                				var msg = document.querySelector("#msg-input").value;
-	                				var msgBox = document.querySelector("#messages");
-	                				if (msg != "") {
-	                					/* var newMsg = document.createElement("div");
-	                					newMsg.classList.add("user-msg");
-	                					newMsg.innerHTML += msg;
-	                					msgBox.appendChild(newMsg); */
-	                					
-	                					websocket.send(msg);
-	                					
-		                				document.querySelector("#msg-input").value = "";
-		                				msgBox.scrollTop = msgBox.scrollHeight;
-	                				}
-	                			}
-                				
-                				websocket.onmessage = function processMessage(message) {
-									var jsonData = JSON.parse(message.data);
-		 							if (jsonData.message != null){
-		 								var str = jsonData.message;
-		 								const mes = str.split(":");
-		 								
-		 								var messToAdd;
-		 								var containerToAppendTo = document.getElementById('messages');
-		 								
-		 								if(mes[0] == <%=em%>){
-		 									messToAdd = document.createElement('div');
-		 									messToAdd.classList.add('user-msg');
-		 								}
-		 								else {
-		 									messToAdd = document.createElement('div');
-		 									messToAdd.classList.add('recipient-msg');
-		 								}
-		 								messToAdd.innerHTML = mes[1];
-		 								containerToAppendTo.appendChild(messToAdd);
-		 							}
-								}
-							</script>
-
+                				<button type="submit" id="send-btn" onclick="sendMessage();">Send</button>
+							</div>
                 		</div>
-                	
-                		<a id="back-link">Back to Reviews</a>
-                	</div>               
+
+                		<a id="back-link" onclick="hideChat();">Back to Reviews</a>
+                	</div>
             </div>
 
             <div id="right">
                 <p>Chat with someone about this album:</p>
 
-                <button type="submit" id="chat-btn">Chat</button>
+                <button type="submit" id="chat-btn" onclick="showChat();">Chat</button>
+
             </div>
         </div>
     </div>
+
+
+    <script>
+    	function showChat(){
+    		document.getElementById('chat').style.display = "block";
+    	}
+    	function hideChat(){
+    		document.getElementById('chat').style.display = "none";
+    	}
+    </script>
+
+
+
+	<script>
+		var input = document.getElementById("msg-input");
+		input.addEventListener("keypress", function(event) {
+  			if (event.key === "Enter") {
+    			event.preventDefault();
+    			document.getElementById("send-btn").click();
+  			}
+		});
+	</script>
 
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
     <script src="javascript/details.js"></script>
