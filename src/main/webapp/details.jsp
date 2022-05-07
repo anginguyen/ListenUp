@@ -479,59 +479,47 @@
 						}
 					}
 					function sendMessage() {
-						websocket.send(document.getElementById('msg-input').value);
-						document.getElementById('msg-input').value = "";
+						var msg = document.getElementById('msg-input').value;
+						if (msg != "") {
+							websocket.send(document.getElementById('msg-input').value);
+							document.getElementById('msg-input').value = "";
+						}
 					}
 				</script>
                 	<div id="chat">
                 		<p class="section-header">Chat about <%=name %></p>
 
                 		<div id="chat-box">
-                			<div id="messages">
-                				<div class="user-msg">Hello</div>
-                				<div class="recipient-msg">Hi</div>
-                			</div>
+                			<div id="messages"></div>
 
 							<div id="msg-form">
 								<input type="text" id="msg-input">
-                				<button type="submit" id="send-btn" onclick="sendMessage();">Send</button>
+                				<button type="button" id="send-btn" onclick="sendMessage();">Send</button>
 							</div>
                 		</div>
 
-                		<a id="back-link" onclick="hideChat();">Back to Reviews</a>
+                		<a id="back-link">Back to Reviews</a>
                 	</div>
             </div>
 
             <div id="right">
                 <p>Chat with someone about this album:</p>
 
-                <button type="submit" id="chat-btn" onclick="showChat();">Chat</button>
+                <button type="button" id="chat-btn">Chat</button>
 
             </div>
         </div>
     </div>
-
-
+    
     <script>
-    	function showChat(){
-    		document.getElementById('chat').style.display = "block";
-    	}
-    	function hideChat(){
-    		document.getElementById('chat').style.display = "none";
-    	}
+		// Sends chat message
+	    var input = document.getElementById("msg-input");
+	    input.addEventListener("keypress", function(event) {
+	    	if (event.key === "Enter") {
+	    		document.getElementById("send-btn").click();
+	    	}
+	    });
     </script>
-
-
-
-	<script>
-		var input = document.getElementById("msg-input");
-		input.addEventListener("keypress", function(event) {
-  			if (event.key === "Enter") {
-    			event.preventDefault();
-    			document.getElementById("send-btn").click();
-  			}
-		});
-	</script>
 
     <script src="https://kit.fontawesome.com/9b2ed648bc.js" crossorigin="anonymous"></script>
     <script src="javascript/details.js"></script>
