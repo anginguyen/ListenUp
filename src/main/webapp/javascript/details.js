@@ -119,6 +119,12 @@ document.querySelector("#back-link").onclick = function() {
 	document.querySelector("#chat").style.display = "none";
 }
 document.querySelector("#chat-btn").onclick = function() {
+	var username = document.querySelector("#username");
+	if (username.value == "Sign" || username.value == "guest") {
+		event.preventDefault();
+		alert("Please log in or make an account to share your opinion!");
+		return;
+	}
 	document.querySelector("#rate-and-review").style.display = "none";
 	document.querySelector("#all-reviews").style.display = "none";
 	document.querySelector("#chat").style.display = "initial";
