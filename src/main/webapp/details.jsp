@@ -458,7 +458,7 @@
 
                     			<%
                     				// Username & review
-	                    			out.println("<p class=\"username\">" + review.get(1) + "</p>");
+	                    			out.println("<a href=\"account.jsp?username=" + review.get(1) + "\"><p class=\"username\">" + review.get(1) + "</p></a>");
 	                    			out.println("<p class=\"user-review\">" + review.get(0) + "</p>");
                     			%>
                     		</div>
